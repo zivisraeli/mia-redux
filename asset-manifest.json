@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/mia-react/static/css/main.8f839ef2.chunk.css",
+    "main.js": "/mia-react/static/js/main.b516f140.chunk.js",
+    "main.js.map": "/mia-react/static/js/main.b516f140.chunk.js.map",
+    "runtime-main.js": "/mia-react/static/js/runtime-main.a884c96e.js",
+    "runtime-main.js.map": "/mia-react/static/js/runtime-main.a884c96e.js.map",
+    "static/js/2.e558298b.chunk.js": "/mia-react/static/js/2.e558298b.chunk.js",
+    "static/js/2.e558298b.chunk.js.map": "/mia-react/static/js/2.e558298b.chunk.js.map",
+    "index.html": "/mia-react/index.html",
+    "precache-manifest.35b40b936b7c9910e9a1b79fcb97d69a.js": "/mia-react/precache-manifest.35b40b936b7c9910e9a1b79fcb97d69a.js",
+    "service-worker.js": "/mia-react/service-worker.js",
+    "static/css/main.8f839ef2.chunk.css.map": "/mia-react/static/css/main.8f839ef2.chunk.css.map",
+    "static/js/2.e558298b.chunk.js.LICENSE": "/mia-react/static/js/2.e558298b.chunk.js.LICENSE",
+    "static/media/footer-paw.png": "/mia-react/static/media/footer-paw.26f2d9a5.png",
+    "static/media/heart-full.png": "/mia-react/static/media/heart-full.0fe46424.png",
+    "static/media/heart-likes.png": "/mia-react/static/media/heart-likes.0fe46424.png",
+    "static/media/heart-outline.png": "/mia-react/static/media/heart-outline.a49ca95c.png",
+    "static/media/img-frame.png": "/mia-react/static/media/img-frame.8cce3f06.png",
+    "static/media/mia-about.jpg": "/mia-react/static/media/mia-about.ebc29d50.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a884c96e.js",
+    "static/js/2.e558298b.chunk.js",
+    "static/css/main.8f839ef2.chunk.css",
+    "static/js/main.b516f140.chunk.js"
+  ]
+}
