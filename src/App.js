@@ -29,9 +29,9 @@ class App extends React.Component {
   }
 
   // =============================================================================
-  // - I need to determine the URL's context path so the app can run locally as well on mia-react.
+  // - I need to determine the URL's context path so the app can run locally as well on mia-redux.
   //   1. remove trailing '/'
-  //   2. if path starts with '/mia-react' it's the context, otherwise it's ''.
+  //   2. if path starts with '/mia-redux' it's the context, otherwise it's ''.
   //   3. if the context === path (meaning no menu entry was selected) set menuEntry to '/about'.
   // - style the meny entry that is equals to menuEntry differently. 
   // =============================================================================
@@ -39,7 +39,7 @@ class App extends React.Component {
     let pathName = window.location.pathname;
     let lastPathNameChar = pathName.charAt(pathName.length-1);
     pathName = (lastPathNameChar === '/') ? pathName.slice(0, -1) : pathName;
-    let contextPath = (pathName.startsWith("/mia-react")) ? "/mia-react" : "";
+    let contextPath = (pathName.startsWith("/mia-redux")) ? "/mia-redux" : "";
     let menuEntry = pathName === contextPath ? contextPath + '/about' : pathName;
     let currentMenuEntryStyle = {textShadow: 'gray 1px 1px 4px'};
 

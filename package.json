@@ -1,8 +1,8 @@
 {
-  "name": "mia-react",
+  "name": "mia-redux",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://zivisraeli.github.io/mia-react",
+  "homepage": "https://zivisraeli.github.io/mia-redux",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
