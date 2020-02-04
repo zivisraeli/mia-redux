@@ -24,10 +24,7 @@ class HeaderImg extends React.Component {
   // If not found, use this.state.headerImgId default value.
   // =============================================================================  
   render() { 
-    console.log('about to get a cookie');
     let headerImgId = getCookie("headerImgId");
-    console.log('id = ' + headerImgId);
-    console.log('Got a cookie');
     headerImgId = headerImgId === null ? this.state.headerImgId : headerImgId;
     let imgSrc = `./images/mia-small-${headerImgId}.jpg`;
 

@@ -119,7 +119,7 @@ class SelfiesModalImg extends React.Component {
             </div>
             <span id="modal-img-text" className="modal-img-caption">{theModalImg.caption}</span>
             <span id="modal-img-like-count" className="modal-img-caption">
-              {theModalImg.likeCount} <img src={heartLikesIcon} class="heart-likes-icon"/>'s
+              {theModalImg.likeCount} <img src={heartLikesIcon} class="heart-likes-icon" alt="like-count"/>'s
             </span>
           </div>
         </div>

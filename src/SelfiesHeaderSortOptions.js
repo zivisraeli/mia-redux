@@ -1,25 +1,15 @@
 import React from 'react';
 
-import { setCookie } from './Utils.js';
+import { setCookie, store } from './Utils.js';
 
 class SelfiesHeaderSortOptions extends React.Component {
-  // =============================================================================
-  // React's controlled element "select" allows setting the property "value" 
-  // which would select the selected entry (option).
-  // =============================================================================
-  constructor(props) {
-    super(props);
 
-    let selectMap = {
+  getSelectMap() {
+    return {
       'likes+1': 'Like number; Asc.',
       'likes-1': 'Like number; Desc.',
       'captions+1': 'Caption; Asc.',
       'captions-1': 'Caption; Desc.',
-    };
-
-    this.state = {
-      sortValue: this.props.sortOptionsInitialValue,
-      selectMap: selectMap
     };
   }
 
@@ -33,25 +23,23 @@ class SelfiesHeaderSortOptions extends React.Component {
   sortChangeEventHandler = (event) => {
     let selectedIndex = event.target.selectedIndex;
     let selectedOptionId = event.target[selectedIndex].id;
-
     setCookie('sort', selectedOptionId);
-    this.setState({ sortValue: selectedOptionId });
-    this.props.sortOptionsChangedCallback(selectedOptionId);
+    store.dispatch({type: 'SORT-ORDER', filter: selectedOptionId});
   }
 
   render() {
-    let m = this.state.selectMap;
+    let m = this.getSelectMap();
 
     return (<div id="select-option-div" >
             <select id="select-sort" 
-                    value={m[this.state.sortValue]} 
+                    value={m[this.props.sortOptionsSelectValue]} 
                     onChange={this.sortChangeEventHandler}>
               <option id="likes+1">{m['likes+1']}</option>
               <option id="likes-1">{m['likes-1']}</option>
               <option id="captions+1">{m['captions+1']}</option>
               <option id="captions-1">{m['captions-1']}</option>
             </select>
-	         </div>);
+           </div>);
   }
 }
 
