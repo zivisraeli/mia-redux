@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { gridItemsData } from './gridItemsData';
-import { gridItemsMap } from './Selfies';
+import { gridItemsMap } from './Utils';
 import heartLikesIcon from './images/heart-likes.png';
 
 let modalImgIndex = 0;

@@ -6,11 +6,10 @@ import Footer from './Footer';
 import { gridItemsData } from './gridItemsData';
 import { getCookie } from './Utils.js';
 import { connect } from 'react-redux';
-
-export const gridItemsMap = new Map();
+import { setCookie } from './Utils.js';
+import { SORT_ORDER } from './constants';
 
 export class Selfies extends React.Component {
-
   // =============================================================================
   // The component needs to run the following 2 tasks before rendering:
   // 1. Read the cookie to get the liked images.
@@ -18,46 +17,7 @@ export class Selfies extends React.Component {
   // =============================================================================
   constructor(props) {
     super(props);
-
     this.readLikesCookie();
-    let initialSortValue = this.readSortCookie();
-
-    this.state = {
-      sortValue: initialSortValue      
-    }
-
-    //this.sortOptionsChangedCallback = this.sortOptionsChangedCallback.bind(this);
-  }
-
-  /*
-  componentDidMount() {
-    store.subscribe(this.renderBridge);
-  }
-
-  renderBridge = () => {
-    this.setState({sortValue: store.getState().sortFilter});
-  }
-  */
-
-  // =============================================================================
-  // Find the select option element pointed to by the cookie.
-  // The cookie string is the same as the options' id. 
-  // - read 'sort' cookie 
-  // - sort the gridItems array.
-  // - return the sortCookie.
-  // =============================================================================
-  readSortCookie = () => {
-    let sortCookie = getCookie('sort');
-    if (sortCookie === null) {
-      sortCookie = 'likes-1'; // default value
-    }
-
-    let sortArr = sortCookie.match('(.*)([-+]1)');
-    let sortAttr = sortArr[1];
-    let sortDirection = sortArr[2];
-
-    //this.sortGridItems(sortAttr, sortDirection);
-    return sortCookie;
   }
 
   // =============================================================================
@@ -86,7 +46,7 @@ export class Selfies extends React.Component {
     return (
       <React.Fragment>
         <main id="grid-section">
-          <SelfiesHeader sortOptionsSelectValue={this.props.sortFilter} />
+          <SelfiesHeader sortOptionsSelectValue={this.props.sortFilter} onSortChange={this.props.onSortChange} />
           <SelfiesSection />
         </main>
         <Footer />        
@@ -95,11 +55,22 @@ export class Selfies extends React.Component {
   }
 }
 
-
 const mapStateToProps = function(state) {
   return {
     sortFilter: state.sortFilter
   }
 }
 
-export default connect(mapStateToProps)(Selfies);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSortChange: (event) => {
+      let selectedIndex = event.target.selectedIndex;
+      let selectedOptionId = event.target[selectedIndex].id;
+      setCookie('sort', selectedOptionId);
+      return dispatch({type: SORT_ORDER, payload: selectedOptionId})
+    },
+  }
+}
+
+export default connect(mapStateToProps, 
+                      mapDispatchToProps)(Selfies);

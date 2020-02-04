@@ -1,9 +1,4 @@
-import { createStore } from 'redux';
-import { connect } from 'react-redux';
 import { gridItemsData } from './gridItemsData';
-import Selfies from './Selfies';
-
-
 
 // =============================================================================
 // cookie related functions
@@ -24,10 +19,25 @@ export const setCookie = (name, value, days = 365) => {
 }
 
 // =============================================================================
+// Find the select option element pointed to by the cookie.
+// The cookie string is the same as the options' id. 
+// - read 'sort' cookie 
+// - sort the gridItems array.
+// - return the sortCookie.
 // =============================================================================
-// R E D U X
-// =============================================================================
-// =============================================================================
+export const readSortCookie = () => {
+  let sortCookie = getCookie('sort');
+  if (sortCookie === null) {
+    sortCookie = 'likes-1'; // default value
+  }
+
+  let sortArr = sortCookie.match('(.*)([-+]1)');
+  let sortAttr = sortArr[1];
+  let sortDirection = sortArr[2];
+
+  sortGridItems(sortAttr, sortDirection);
+  return sortCookie;
+}
 
 // =============================================================================
 // - the gridMap purpose is to map imgId to it's location in the gridItems so
@@ -42,7 +52,7 @@ export const gridItemsMap = new Map();
 // Since gridItemsData is imported, Javascript would allow to change it.
 // An imported symbol is akin to having a const symbol. 
 // =============================================================================
-const sortGridItems = (sortAttr, sortDirection) => {
+export const sortGridItems = (sortAttr, sortDirection) => {
   let sortedGridItems = gridItemsData.sort((item1, item2) => {
     let retVal = 0;
     if (sortAttr === "captions") {
@@ -70,7 +80,7 @@ const sortGridItems = (sortAttr, sortDirection) => {
 // up from the SelfiesHeaderSortOptions), however, the sort option can change not 
 // necessarily as a result of an event; initally it is changed based on the cookie value. 
 // =============================================================================
-const sortOptionsChangedCallback = (sortValue) => {
+export const sortOptionsChangedCallback = (sortValue) => {
   let sortAttr = '';
   let sortDirection = '';
 
@@ -97,56 +107,3 @@ const sortOptionsChangedCallback = (sortValue) => {
 
   sortGridItems(sortAttr, sortDirection);
 }
-
-// =============================================================================
-// Actions
-// =============================================================================
-//let actions = { type: 'SORT-ORDER', filter: '' };
-
-const SortFilters = {
-  LIKESm1: 'likes-1',
-  LIKESp1: 'likes+1',
-  CAPTIONSm1: 'captions-1',
-  CAPTIONSp1: 'captions+1'
-}
-
-// =============================================================================
-// State
-// =============================================================================
-const initialState = {
-  sortFilter: SortFilters.CAPTIONSm1,
-  gridItemsMap: gridItemsMap
-}
-
-// =============================================================================
-// - This is a reducer, a pure function with (state, action) signature.
-// - Based on an action it transforms the state into the next state.
-// - Since it should contain the business logic - this is where the sort takes place.
-// - To avoid mutating the original state we use Object.assign() that take an empty object
-//   and a list of objects to be merged. 
-// =============================================================================
-function appReducer(state = initialState, action) {
-  switch (action.type) {
-    case 'SORT-ORDER':
-      sortOptionsChangedCallback(action.filter);
-      return Object.assign({}, state, {
-        sortFilter: action.filter
-      });
-    case 'LIKE-TOGGLE':
-      return Object.assign({}, state, {
-        itemLiked: action.itemLiked
-      });
-    default:
-      sortOptionsChangedCallback(SortFilters.CAPTIONSm1);
-      return state
-  }
-}
-
-// =============================================================================
-// - The Redux store holds the state of the app.
-// - Upon creating the store the reducer is called for the first time. 
-//   This is how the state initial value is set!!!
-// =============================================================================
-export const store = createStore(appReducer);
-
-
