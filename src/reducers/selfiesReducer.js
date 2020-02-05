@@ -1,11 +1,17 @@
-import { SORT_ORDER } from './constants.js';
-import { sortOptionsChangedCallback, readSortCookie } from './Utils.js';
+import { SORT_ORDER, 
+	       IMG_CLICK, 
+	       MODAL_CLOSED, 
+	       ALL_IMGS_LOADED } from '../constants.js';
+import { sortOptionsChanged, readSortCookie } from '../Utils.js';
 
 // =============================================================================
 // State
 // =============================================================================
 const initialState = {
   sortFilter: readSortCookie(),
+  modalImgId: '',
+  blurEffect: 'non-blurred',
+  gridVisibility: 'hidden'
 }
 
 // =============================================================================
@@ -18,17 +24,26 @@ const initialState = {
 export const appReducer = (state = initialState, action) => {
   switch (action.type) {
     case SORT_ORDER:
-      sortOptionsChangedCallback(action.payload);
+      sortOptionsChanged(action.payload);
       return Object.assign({}, state, {
         sortFilter: action.payload
       });
-    case 'LIKE-TOGGLE':
+    case IMG_CLICK:
       return Object.assign({}, state, {
-        itemLiked: action.itemLiked
+        modalImgId: action.payload,
+        blurEffect: 'blurred'
+      });
+    case MODAL_CLOSED:
+      return Object.assign({}, state, {
+        modalImgId: '',
+        blurEffect: 'un-blurred'
+      });
+    case ALL_IMGS_LOADED:
+      return Object.assign({}, state, {
+        gridVisibility: 'visible'        
       });
     default:
-      sortOptionsChangedCallback(initialState.sortFilter);
+      sortOptionsChanged(initialState.sortFilter);
       return state
   }
 }
-

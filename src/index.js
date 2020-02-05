@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import App from './App.js';
-import { appReducer } from './reducers.js';
+import { appReducer } from './reducers/selfiesReducer.js';
 
 // =============================================================================
 // - The Redux store holds the state of the app.

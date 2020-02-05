@@ -7,7 +7,7 @@ import { gridItemsData } from './gridItemsData';
 import { getCookie } from './Utils.js';
 import { connect } from 'react-redux';
 import { setCookie } from './Utils.js';
-import { SORT_ORDER } from './constants';
+import { SORT_ORDER, IMG_CLICK, MODAL_CLOSED, ALL_IMGS_LOADED } from './constants';
 
 export class Selfies extends React.Component {
   // =============================================================================
@@ -46,8 +46,14 @@ export class Selfies extends React.Component {
     return (
       <React.Fragment>
         <main id="grid-section">
-          <SelfiesHeader sortOptionsSelectValue={this.props.sortFilter} onSortChange={this.props.onSortChange} />
-          <SelfiesSection />
+          <SelfiesHeader sortOptionsSelectValue={this.props.sortFilter} 
+                         onSortChange={this.props.onSortChange} />
+          <SelfiesSection modalImgId={this.props.modalImgId} 
+                          blurEffect={this.props.blurEffect} 
+                          gridVisibility={this.props.gridVisibility}
+                          onImgClick={this.props.onImgClick}
+                          onModalClosed={this.props.onModalClosed} 
+                          onAllImgsLoaded={this.props.onAllImgsLoaded}/>
         </main>
         <Footer />        
       </React.Fragment>
@@ -57,7 +63,10 @@ export class Selfies extends React.Component {
 
 const mapStateToProps = function(state) {
   return {
-    sortFilter: state.sortFilter
+    sortFilter: state.sortFilter,
+    modalImgId: state.modalImgId,
+    blurEffect: state.blurEffect,
+    gridVisibility: state.gridVisibility,
   }
 }
 
@@ -67,8 +76,18 @@ const mapDispatchToProps = (dispatch) => {
       let selectedIndex = event.target.selectedIndex;
       let selectedOptionId = event.target[selectedIndex].id;
       setCookie('sort', selectedOptionId);
-      return dispatch({type: SORT_ORDER, payload: selectedOptionId})
+      return dispatch({type: SORT_ORDER, payload: selectedOptionId});
     },
+    onImgClick: (event) => {
+      let itemId = event.target.parentElement.id;
+      return dispatch({type: IMG_CLICK, payload: itemId});
+    },
+    onModalClosed: () => {
+      return dispatch({type: MODAL_CLOSED});
+    },
+    onAllImgsLoaded: () => {
+      return dispatch({type: ALL_IMGS_LOADED});
+    }
   }
 }
 

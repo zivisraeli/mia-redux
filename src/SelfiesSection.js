@@ -9,17 +9,7 @@ let loadedImgCounter = 0;
 class SelfiesSection extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      gridVisibility: 'hidden',
-      spinnerDisplay: 'inline-block',
-      blurEffect: 'non-blurred',
-      modalImgId: ''
-    };
-
     this.imgLoadCallbackEventHandler = this.imgLoadCallbackEventHandler.bind(this);
-    this.imgClickCallbackEventHandler = this.imgClickCallbackEventHandler.bind(this);
-    this.modalClosedCallbackEventHandler = this.modalClosedCallbackEventHandler.bind(this);
   }
 
   // =============================================================================
@@ -29,27 +19,9 @@ class SelfiesSection extends React.Component {
   imgLoadCallbackEventHandler() {
     loadedImgCounter++;
     if (loadedImgCounter === gridItemsData.length) {
-      this.setState({
-        gridVisibility: 'visible',
-        spinnerDisplay: 'none'
-      });
+      this.props.onAllImgsLoaded();
       loadedImgCounter = 0;
     }
-  }
-
-  imgClickCallbackEventHandler(event) {
-    let itemId = event.target.parentElement.id;
-    this.setState({
-      modalImgId: itemId,
-      blurEffect: 'blurred'
-    });
-  }
-
-  modalClosedCallbackEventHandler() {
-    this.setState({
-      modalImgId: '',
-      blurEffect: 'non-blurred'
-    });
   }
 
   // =============================================================================  
@@ -60,19 +32,19 @@ class SelfiesSection extends React.Component {
   //   the imgClickCallbackEventHandler() is invoked that changes the state.modalImgId value.
   // =============================================================================  
   render() {
-    let gridVisibility = { visibility: this.state.gridVisibility }
-    let spinnerDisplay = { display: this.state.spinnerDisplay }
-    let blurEffect = this.state.blurEffect;
-    let modalImgId = this.state.modalImgId;
+    let gridVisibility = this.props.gridVisibility;
+    let spinnerDisplay = gridVisibility === 'hidden' ? 'inline-block' : 'none';
+    let blurEffect = this.props.blurEffect;
+    let modalImgId = this.props.modalImgId;
 
     return (
       <React.Fragment>            
-        <div id="spinner-div" className="lds-ripple" style={spinnerDisplay}>
+        <div id="spinner-div" className="lds-ripple" style={{display:spinnerDisplay}}>
           <div></div>
           <div></div>
         </div>
         <section className="grid-section middle-section">
-          <div className={"dynamic-grid " + blurEffect} style={gridVisibility}>
+          <div className={"dynamic-grid " + blurEffect} style={{visibility:gridVisibility}}>
             {gridItemsData.map((gridItemData) => {
               return (<GridItem id={gridItemData.id}
                                 src={gridItemData.src}
@@ -81,15 +53,14 @@ class SelfiesSection extends React.Component {
                                 likeCount={gridItemData.likeCount}
                                 date={gridItemData.date} 
                                 imgLoadCallbackEventHandler={this.imgLoadCallbackEventHandler}
-                                imgClickCallbackEventHandler={this.imgClickCallbackEventHandler}
+                                imgClickCallbackEventHandler={this.props.onImgClick}
                                 key={gridItemData.id} />);
             })}
           </div>
 
-          {this.state.modalImgId !== '' ? 
+          {modalImgId !== '' ? 
             <SelfiesModalImg modalImgId={modalImgId}
-                             modalClosedCallbackEventHandler={this.modalClosedCallbackEventHandler} /> :
-            ''
+                             modalClosedCallbackEventHandler={this.props.onModalClosed} /> : ''
           }
         </section>
       </React.Fragment>

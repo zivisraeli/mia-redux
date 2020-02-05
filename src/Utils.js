@@ -1,7 +1,7 @@
 import { gridItemsData } from './gridItemsData';
 
 // =============================================================================
-// cookie related functions
+// get cookie 
 // =============================================================================
 export const getCookie = (name) => {
   // since document.cookie returns all cookie, match would filter out the one I need.
@@ -12,6 +12,9 @@ export const getCookie = (name) => {
   return value ? value[1] : null;
 }
 
+// =============================================================================
+// set cookie 
+// =============================================================================
 export const setCookie = (name, value, days = 365) => {
   let d = new Date();
   d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days);
@@ -52,7 +55,7 @@ export const gridItemsMap = new Map();
 // Since gridItemsData is imported, Javascript would allow to change it.
 // An imported symbol is akin to having a const symbol. 
 // =============================================================================
-export const sortGridItems = (sortAttr, sortDirection) => {
+const sortGridItems = (sortAttr, sortDirection) => {
   let sortedGridItems = gridItemsData.sort((item1, item2) => {
     let retVal = 0;
     if (sortAttr === "captions") {
@@ -80,7 +83,7 @@ export const sortGridItems = (sortAttr, sortDirection) => {
 // up from the SelfiesHeaderSortOptions), however, the sort option can change not 
 // necessarily as a result of an event; initally it is changed based on the cookie value. 
 // =============================================================================
-export const sortOptionsChangedCallback = (sortValue) => {
+export const sortOptionsChanged = (sortValue) => {
   let sortAttr = '';
   let sortDirection = '';
 
