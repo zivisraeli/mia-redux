@@ -1,8 +1,11 @@
 import { SORT_ORDER, 
 	       IMG_CLICK, 
 	       MODAL_CLOSED, 
-	       ALL_IMGS_LOADED } from '../constants.js';
-import { sortOptionsChanged, readSortCookie } from '../Utils.js';
+	       ALL_IMGS_LOADED, 
+         MODAL_NEXT_BTN, 
+         MODAL_PREV_BTN } from '../constants.js';
+import { gridItemsMap, sortOptionsChanged, readSortCookie } from '../Utils.js';
+import { gridItemsData } from '../gridItemsData';
 
 // =============================================================================
 // State
@@ -21,7 +24,10 @@ const initialState = {
 // - To avoid mutating the original state we use Object.assign() that take an empty object
 //   and a list of objects to be merged. 
 // =============================================================================
-export const appReducer = (state = initialState, action) => {
+export const selfiesReducer = (state = initialState, action) => {
+  let modalImgId = '';
+  let modalImgIndex = 0;
+
   switch (action.type) {
     case SORT_ORDER:
       sortOptionsChanged(action.payload);
@@ -33,7 +39,7 @@ export const appReducer = (state = initialState, action) => {
         modalImgId: action.payload,
         blurEffect: 'blurred'
       });
-    case MODAL_CLOSED:
+      case MODAL_CLOSED:
       return Object.assign({}, state, {
         modalImgId: '',
         blurEffect: 'un-blurred'
@@ -41,6 +47,24 @@ export const appReducer = (state = initialState, action) => {
     case ALL_IMGS_LOADED:
       return Object.assign({}, state, {
         gridVisibility: 'visible'        
+      });
+    case MODAL_NEXT_BTN:
+      modalImgId = state.modalImgId;
+      modalImgIndex = gridItemsMap.get(modalImgId);
+      modalImgIndex = (modalImgIndex + 1) === gridItemsData.length ? 0 : modalImgIndex + 1;
+      modalImgId = gridItemsData[modalImgIndex].id;
+
+      return Object.assign({}, state, {
+        modalImgId: modalImgId      
+      });
+    case MODAL_PREV_BTN:
+      modalImgId = state.modalImgId;
+      modalImgIndex = gridItemsMap.get(modalImgId);
+      modalImgIndex = modalImgIndex === 0 ? gridItemsData.length - 1 : modalImgIndex - 1;
+      modalImgId = gridItemsData[modalImgIndex].id;
+
+      return Object.assign({}, state, {
+        modalImgId: modalImgId      
       });
     default:
       sortOptionsChanged(initialState.sortFilter);

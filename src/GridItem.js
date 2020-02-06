@@ -92,7 +92,7 @@ class GridItem extends React.Component {
               className="grid-image"
               alt={this.props.id}
               onLoad={this.props.imgLoadCallbackEventHandler} 
-              onClick={this.props.imgClickCallbackEventHandler} />
+              onClick={this.props.onImgClick} />
          <figcaption className="figcaption">
                      {this.props.caption}&nbsp;|&nbsp;
            <span id="like-count-span">{this.state.likeCount}</span>&nbsp;

@@ -7,7 +7,7 @@ import { gridItemsData } from './gridItemsData';
 import { getCookie } from './Utils.js';
 import { connect } from 'react-redux';
 import { setCookie } from './Utils.js';
-import { SORT_ORDER, IMG_CLICK, MODAL_CLOSED, ALL_IMGS_LOADED } from './constants';
+import { SORT_ORDER, IMG_CLICK, MODAL_CLOSED, ALL_IMGS_LOADED, MODAL_NEXT_BTN, MODAL_PREV_BTN } from './constants';
 
 export class Selfies extends React.Component {
   // =============================================================================
@@ -53,7 +53,9 @@ export class Selfies extends React.Component {
                           gridVisibility={this.props.gridVisibility}
                           onImgClick={this.props.onImgClick}
                           onModalClosed={this.props.onModalClosed} 
-                          onAllImgsLoaded={this.props.onAllImgsLoaded}/>
+                          onAllImgsLoaded={this.props.onAllImgsLoaded}
+                          onModalNextBtn={this.props.onModalNextBtn}
+                          onModalPrevBtn={this.props.onModalPrevBtn}/>
         </main>
         <Footer />        
       </React.Fragment>
@@ -84,6 +86,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     onModalClosed: () => {
       return dispatch({type: MODAL_CLOSED});
+    },
+    onModalNextBtn: () => {
+      return dispatch({type: MODAL_NEXT_BTN});
+    },
+    onModalPrevBtn: () => {
+      return dispatch({type: MODAL_PREV_BTN});
     },
     onAllImgsLoaded: () => {
       return dispatch({type: ALL_IMGS_LOADED});

@@ -19,8 +19,8 @@ class SelfiesSection extends React.Component {
   imgLoadCallbackEventHandler() {
     loadedImgCounter++;
     if (loadedImgCounter === gridItemsData.length) {
-      this.props.onAllImgsLoaded();
       loadedImgCounter = 0;
+      this.props.onAllImgsLoaded();      
     }
   }
 
@@ -53,14 +53,16 @@ class SelfiesSection extends React.Component {
                                 likeCount={gridItemData.likeCount}
                                 date={gridItemData.date} 
                                 imgLoadCallbackEventHandler={this.imgLoadCallbackEventHandler}
-                                imgClickCallbackEventHandler={this.props.onImgClick}
+                                onImgClick={this.props.onImgClick}
                                 key={gridItemData.id} />);
             })}
           </div>
 
           {modalImgId !== '' ? 
             <SelfiesModalImg modalImgId={modalImgId}
-                             modalClosedCallbackEventHandler={this.props.onModalClosed} /> : ''
+                             onModalClosed={this.props.onModalClosed}
+                             onModalNextBtn={this.props.onModalNextBtn}
+                             onModalPrevBtn={this.props.onModalPrevBtn} /> : ''
           }
         </section>
       </React.Fragment>

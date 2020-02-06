@@ -11,7 +11,6 @@ class SelfiesModalImg extends React.Component {
     super(props);
 
     this.state = {
-      modalImgId: this.props.modalImgId,
       modalImgHeight: '',
       containerDivMaxWidth: '',
     };
@@ -50,33 +49,13 @@ class SelfiesModalImg extends React.Component {
     }
   }
 
-  prevBtnEventHandler = () => {
-    modalImgIndex = modalImgIndex === 0 ? gridItemsData.length - 1 : modalImgIndex - 1;
-    let modalImgId = gridItemsData[modalImgIndex].id;
-    this.setState({ modalImgId: modalImgId });
-  }
-
-  nextBtnEventHandler = () => {
-    modalImgIndex = (modalImgIndex + 1) === gridItemsData.length ? 0 : modalImgIndex + 1;
-    let modalImgId = gridItemsData[modalImgIndex].id;
-    this.setState({ modalImgId: modalImgId });
-  }
-
-  // =============================================================================
-  // The method SelfiesSection.modalClosedCallbackEventHandler, upong being invoked
-  // will re-render the entire grid un-blurred and remove the modal component. 
-  // =============================================================================
-  closeBtnEventHandler = () => {
-    this.props.modalClosedCallbackEventHandler();
-  }
-
   render() {
     let theModalImg = {
-      displayStyle: this.state.modalImgId === '' ? 'none' : 'block'
+      displayStyle: this.props.modalImgId === '' ? 'none' : 'block'
     };
 
-    if (this.state.modalImgId !== '') {
-      modalImgIndex = gridItemsMap.get(this.state.modalImgId);
+    if (this.props.modalImgId !== '') {
+      modalImgIndex = gridItemsMap.get(this.props.modalImgId);
       let gridItem = gridItemsData[modalImgIndex];
 
       let arrSrc = gridItem.src.match('(.*mia-).*-(.*)(.jpg$)');
@@ -110,7 +89,7 @@ class SelfiesModalImg extends React.Component {
     return (
       <div id="modal-main-container-div" style={{display: theModalImg.displayStyle}}>
         <div id="modal-sub-container-div" style={{maxWidth: this.state.containerDivMaxWidth}}>
-          <span className="modal-img-close-btn" onClick={this.closeBtnEventHandler}>&times;</span>
+          <span className="modal-img-close-btn" onClick={this.props.onModalClosed}>&times;</span>
           <div id="modal-main-img-div" style={{padding:'25px 25px 25px 25px', border: '1px solid black'}}>
             <div id="modal-img-div" style={{overflowY: 'auto',  overflowX: 'hidden', height: this.state.modalImgHeight}}>                                         
               <img src={theModalImg.src} 
@@ -119,19 +98,19 @@ class SelfiesModalImg extends React.Component {
             </div>
             <span id="modal-img-text" className="modal-img-caption">{theModalImg.caption}</span>
             <span id="modal-img-like-count" className="modal-img-caption">
-              {theModalImg.likeCount} <img src={heartLikesIcon} class="heart-likes-icon" alt="like-count"/>'s
+              {theModalImg.likeCount} <img src={heartLikesIcon} className="heart-likes-icon" alt="like-count"/>'s
             </span>
           </div>
         </div>
         <button id="prev-btn" 
                 className="nav-button"
-                onClick={this.prevBtnEventHandler}>
+                onClick={this.props.onModalPrevBtn}>
           <i className="fa fa-arrow-circle-left"></i>
           <span className="button-text">&nbsp;&nbsp;Previous</span>
         </button>
         <button id="next-btn" 
                 className="nav-button" 
-                onClick={this.nextBtnEventHandler}>
+                onClick={this.props.onModalNextBtn}>
           <span className="button-text">Next&nbsp;&nbsp;</span>
           <i className="fa fa-arrow-circle-right"></i>
         </button>
