@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SelfiesHeaderSortOptions from './SelfiesHeaderSortOptions';
+import SelfiesSortOptions from './containers/SelfiesSortOptions';
 
 class SelfiesHeader extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class SelfiesHeader extends React.Component {
 	      <h1>Some of my best selfies!</h1>
 	      <ul className="customed-ul">
 	        <li>
-	          Sort Images By: <SelfiesHeaderSortOptions />        
+	          Sort Images By: <SelfiesSortOptions />        
 	        </li>
 	        <li>Click on the image for a full image view.</li>
 	        <li className="desktopLi">Click on the heart icon to like the image!</li>
