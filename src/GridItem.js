@@ -11,8 +11,10 @@ export class GridItem extends React.Component {
   constructor(props) {
     super(props);
 
-    // For that component I'm using React style state since this particular items know to re-render
-    // itself upon clicking on the heart image (liking).
+    // =============================================================================
+    // For that component only I keep using local component state since this particular 
+    // item knows to re-render itself upon clicking on the heart image (liking).
+    // =============================================================================
     this.state = {
       isLiked: this.props.isLiked,
       likeCount: this.props.likeCount

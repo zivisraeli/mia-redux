@@ -9,8 +9,7 @@ class SelfiesHeader extends React.Component {
 	      <h1>Some of my best selfies!</h1>
 	      <ul className="customed-ul">
 	        <li>
-	          Sort Images By: <SelfiesHeaderSortOptions sortOptionsSelectValue={this.props.sortOptionsSelectValue} 
-	                                                    onSortChange={this.props.onSortChange} />        
+	          Sort Images By: <SelfiesHeaderSortOptions />        
 	        </li>
 	        <li>Click on the image for a full image view.</li>
 	        <li className="desktopLi">Click on the heart icon to like the image!</li>

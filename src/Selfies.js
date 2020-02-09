@@ -6,8 +6,7 @@ import Footer from './Footer';
 import { gridItemsData } from './gridItemsData';
 import { getCookie } from './Utils.js';
 import { connect } from 'react-redux';
-import { setCookie } from './Utils.js';
-import { SORT_ORDER, ALL_IMGS_LOADED } from './constants';
+import { ALL_IMGS_LOADED } from './constants';
 
 export class Selfies extends React.Component {
   // =============================================================================
@@ -46,8 +45,7 @@ export class Selfies extends React.Component {
     return (
       <React.Fragment>
         <main id="grid-section">
-          <SelfiesHeader sortOptionsSelectValue={this.props.sortFilter} 
-                         onSortChange={this.props.onSortChange} />
+          <SelfiesHeader />
           <SelfiesSection blurEffect={this.props.blurEffect} 
                           gridVisibility={this.props.gridVisibility}
                           onAllImgsLoaded={this.props.onAllImgsLoaded}
@@ -69,13 +67,7 @@ const mapStateToProps = function(state) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    onSortChange: (event) => {
-      let selectedIndex = event.target.selectedIndex;
-      let selectedOptionId = event.target[selectedIndex].id;
-      setCookie('sort', selectedOptionId);
-      return dispatch({type: SORT_ORDER, payload: selectedOptionId});
-    },   
+  return {  
     onAllImgsLoaded: () => {
       return dispatch({type: ALL_IMGS_LOADED});
     }

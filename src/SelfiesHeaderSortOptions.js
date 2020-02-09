@@ -1,6 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-class SelfiesHeaderSortOptions extends React.Component {
+import { setCookie } from './Utils.js';
+import { SORT_ORDER } from './constants';
+
+export class SelfiesHeaderSortOptions extends React.Component {
   getSelectMap() {
     return {
       'likes+1': 'Like number; Asc.',
@@ -15,7 +19,7 @@ class SelfiesHeaderSortOptions extends React.Component {
 
     return (<div id="select-option-div" >
             <select id="select-sort" 
-                    value={m[this.props.sortOptionsSelectValue]} 
+                    value={m[this.props.sortFilter]} 
                     onChange={this.props.onSortChange}>
               <option id="likes+1">{m['likes+1']}</option>
               <option id="likes-1">{m['likes-1']}</option>
@@ -26,4 +30,22 @@ class SelfiesHeaderSortOptions extends React.Component {
   }
 }
 
-export default SelfiesHeaderSortOptions;
+const mapStateToProps = function(state) {
+  return {
+    sortFilter: state.sortFilter,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSortChange: (event) => {
+      let selectedIndex = event.target.selectedIndex;
+      let selectedOptionId = event.target[selectedIndex].id;
+      setCookie('sort', selectedOptionId);
+      return dispatch({type: SORT_ORDER, payload: selectedOptionId});
+    }
+  }
+}
+
+export default connect(mapStateToProps, 
+                       mapDispatchToProps)(SelfiesHeaderSortOptions);
