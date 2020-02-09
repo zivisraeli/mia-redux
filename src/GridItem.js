@@ -1,14 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { gridItemsData } from './gridItemsData';
 import { getCookie, setCookie } from './Utils.js';
 import heartOutline from './images/heart-outline.png';
 import heartFull from './images/heart-full.png';
+import { IMG_CLICK } from './constants';
 
-class GridItem extends React.Component {
+export class GridItem extends React.Component {
   constructor(props) {
     super(props);
 
+    // For that component I'm using React style state since this particular items know to re-render
+    // itself upon clicking on the heart image (liking).
     this.state = {
       isLiked: this.props.isLiked,
       likeCount: this.props.likeCount
@@ -16,6 +20,9 @@ class GridItem extends React.Component {
   }
 
   // =============================================================================
+  // The heart image doesn't carry an id, but its parent does.
+  // The id is used to find the actual grid-item element from the list.
+  // Once the grid-item element if found, we can manipulate its data in toggleLikeCount()
   // The method would:
   //   - toggle the isLiked value.
   //   - increment/decrement the likeCount.
@@ -23,7 +30,12 @@ class GridItem extends React.Component {
   //     the proper icon and count number. 
   //   - update the likes cookie.
   // =============================================================================
-  toggleLikeCount(gridItem) {
+  heartClickEventHandler = (event) => {
+    let itemId = event.target.parentElement.id;
+    let gridItem = gridItemsData.find((gridItem) => {
+      return gridItem.id === itemId;
+    });
+    
     if (gridItem.isLiked) {
       gridItem.isLiked = false;
       gridItem.likeCount--;
@@ -65,19 +77,6 @@ class GridItem extends React.Component {
     }
   }
 
-  // =============================================================================
-  // The heart image doesn't carry an id, but its parent does.
-  // The id is used to find the actual grid-item element from the list.
-  // Once the grid-item element if found, we can manipulate its data in toggleLikeCount()
-  // =============================================================================
-  heartClickEventHandler = (event) => {
-    let itemId = event.target.parentElement.id;
-    let gridItem = gridItemsData.find((gridItem) => {
-      return gridItem.id === itemId;
-    });
-    this.toggleLikeCount(gridItem);
-  }
-
   render() {
     let theHeart = heartOutline;
     let theHeartClass = 'heart';
@@ -110,4 +109,18 @@ class GridItem extends React.Component {
   }
 }
 
-export default GridItem;
+const mapStateToProps = function(state) {
+  return { }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onImgClick: (event) => {
+      let itemId = event.target.parentElement.id;
+      return dispatch({type: IMG_CLICK, payload: itemId});
+    }
+  }
+}
+
+export default connect(mapStateToProps, 
+                       mapDispatchToProps)(GridItem);

@@ -7,7 +7,7 @@ import { gridItemsData } from './gridItemsData';
 import { getCookie } from './Utils.js';
 import { connect } from 'react-redux';
 import { setCookie } from './Utils.js';
-import { SORT_ORDER, IMG_CLICK, MODAL_CLOSED, ALL_IMGS_LOADED, MODAL_NEXT_BTN, MODAL_PREV_BTN } from './constants';
+import { SORT_ORDER, ALL_IMGS_LOADED } from './constants';
 
 export class Selfies extends React.Component {
   // =============================================================================
@@ -48,14 +48,10 @@ export class Selfies extends React.Component {
         <main id="grid-section">
           <SelfiesHeader sortOptionsSelectValue={this.props.sortFilter} 
                          onSortChange={this.props.onSortChange} />
-          <SelfiesSection modalImgId={this.props.modalImgId} 
-                          blurEffect={this.props.blurEffect} 
+          <SelfiesSection blurEffect={this.props.blurEffect} 
                           gridVisibility={this.props.gridVisibility}
-                          onImgClick={this.props.onImgClick}
-                          onModalClosed={this.props.onModalClosed} 
                           onAllImgsLoaded={this.props.onAllImgsLoaded}
-                          onModalNextBtn={this.props.onModalNextBtn}
-                          onModalPrevBtn={this.props.onModalPrevBtn}/>
+                          isModalOn={this.props.isModalOn} />
         </main>
         <Footer />        
       </React.Fragment>
@@ -66,9 +62,9 @@ export class Selfies extends React.Component {
 const mapStateToProps = function(state) {
   return {
     sortFilter: state.sortFilter,
-    modalImgId: state.modalImgId,
     blurEffect: state.blurEffect,
     gridVisibility: state.gridVisibility,
+    isModalOn: state.isModalOn
   }
 }
 
@@ -79,20 +75,7 @@ const mapDispatchToProps = (dispatch) => {
       let selectedOptionId = event.target[selectedIndex].id;
       setCookie('sort', selectedOptionId);
       return dispatch({type: SORT_ORDER, payload: selectedOptionId});
-    },
-    onImgClick: (event) => {
-      let itemId = event.target.parentElement.id;
-      return dispatch({type: IMG_CLICK, payload: itemId});
-    },
-    onModalClosed: () => {
-      return dispatch({type: MODAL_CLOSED});
-    },
-    onModalNextBtn: () => {
-      return dispatch({type: MODAL_NEXT_BTN});
-    },
-    onModalPrevBtn: () => {
-      return dispatch({type: MODAL_PREV_BTN});
-    },
+    },   
     onAllImgsLoaded: () => {
       return dispatch({type: ALL_IMGS_LOADED});
     }
@@ -100,4 +83,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, 
-                      mapDispatchToProps)(Selfies);
+                       mapDispatchToProps)(Selfies);

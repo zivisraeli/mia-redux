@@ -1,20 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { gridItemsData } from './gridItemsData';
 import { gridItemsMap } from './Utils';
 import heartLikesIcon from './images/heart-likes.png';
+import { MODAL_NEXT_BTN, MODAL_PREV_BTN, MODAL_IMG_LOADED, MODAL_CLOSED } from './constants';
 
-let modalImgIndex = 0;
-
-class SelfiesModalImg extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      modalImgHeight: '',
-      containerDivMaxWidth: '',
-    };
-  }
+export class SelfiesModalImg extends React.Component {
+  modalImgHeight;
+  containerDivMaxWidth;
 
   // =============================================================================
   // The img width is always 75% of the viewport.
@@ -31,38 +25,36 @@ class SelfiesModalImg extends React.Component {
     let vpW = document.documentElement.clientWidth;
     let vpH = document.documentElement.clientHeight - 149;
     if (imgW < (document.documentElement.clientWidth * 0.65)) {
-      this.setState({containerDivMaxWidth:'50vw'});
+      this.containerDivMaxWidth = '50vw';
       vpW = vpW * 0.5;
     } else {
-      this.setState({containerDivMaxWidth:'75vw'});
+      this.containerDivMaxWidth = '75vw';
       vpW = vpW * 0.75;
     }
 
     let vpW2h = vpW / vpH;
-    
+
     // For a wide image or for image where height is smaller then the viewport's height - 
     // don't specify height.
     if (imgW2h > vpW2h || (imgH < vpH)) {
-      this.setState({ modalImgHeight: '' });
+      this.modalImgHeight = '';
     } else {
-      this.setState({ modalImgHeight: vpH });
+      this.modalImgHeight = vpH;
     }
+
+    this.props.onModalImgLoaded();
   }
 
   render() {
-    let theModalImg = {
-      displayStyle: this.props.modalImgId === '' ? 'none' : 'block'
-    };
+    let modalImgIndex = gridItemsMap.get(this.props.modalImgId);
+    let gridItem = gridItemsData[modalImgIndex];
 
-    if (this.props.modalImgId !== '') {
-      modalImgIndex = gridItemsMap.get(this.props.modalImgId);
-      let gridItem = gridItemsData[modalImgIndex];
-
-      let arrSrc = gridItem.src.match('(.*mia-).*-(.*)(.jpg$)');
-      theModalImg.src = arrSrc[1] + arrSrc[2] + arrSrc[3];
-      theModalImg.caption = gridItem.caption;
-      theModalImg.likeCount = gridItem.likeCount;
-    }
+    let arrSrc = gridItem.src.match('(.*mia-).*-(.*)(.jpg$)');
+    let theModalImg = {};
+    theModalImg.src = arrSrc[1] + arrSrc[2] + arrSrc[3];
+    theModalImg.caption = gridItem.caption;
+    theModalImg.likeCount = gridItem.likeCount;
+    theModalImg.displayStyle = this.props.modalDisplayStyle;
 
     // =============================================================================
     // For divs:
@@ -88,10 +80,10 @@ class SelfiesModalImg extends React.Component {
     // =============================================================================
     return (
       <div id="modal-main-container-div" style={{display: theModalImg.displayStyle}}>
-        <div id="modal-sub-container-div" style={{maxWidth: this.state.containerDivMaxWidth}}>
+        <div id="modal-sub-container-div" style={{maxWidth: this.containerDivMaxWidth}}>
           <span className="modal-img-close-btn" onClick={this.props.onModalClosed}>&times;</span>
           <div id="modal-main-img-div" style={{padding:'25px 25px 25px 25px', border: '1px solid black'}}>
-            <div id="modal-img-div" style={{overflowY: 'auto',  overflowX: 'hidden', height: this.state.modalImgHeight}}>                                         
+            <div id="modal-img-div" style={{overflowY: 'auto',  overflowX: 'hidden', height: this.modalImgHeight}}>                                         
               <img src={theModalImg.src} 
                    alt="Mia's i-m-g"                 
                    onLoad={this.onLoadEventHandler}/>           
@@ -119,4 +111,29 @@ class SelfiesModalImg extends React.Component {
   }
 }
 
-export default SelfiesModalImg;
+const mapStateToProps = function(state) {
+  return {
+    modalImgId: state.modalImgId,
+    modalDisplayStyle: state.modalDisplayStyle
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onModalNextBtn: () => {
+      return dispatch({ type: MODAL_NEXT_BTN });
+    },
+    onModalPrevBtn: () => {
+      return dispatch({ type: MODAL_PREV_BTN });
+    },
+    onModalImgLoaded: () => {
+      return dispatch({ type: MODAL_IMG_LOADED });
+    },
+    onModalClosed: () => {
+      return dispatch({ type: MODAL_CLOSED });
+    },
+  }
+}
+
+export default connect(mapStateToProps,
+                       mapDispatchToProps)(SelfiesModalImg);

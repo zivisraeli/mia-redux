@@ -3,7 +3,8 @@ import { SORT_ORDER,
 	       MODAL_CLOSED, 
 	       ALL_IMGS_LOADED, 
          MODAL_NEXT_BTN, 
-         MODAL_PREV_BTN } from '../constants.js';
+         MODAL_PREV_BTN,
+         MODAL_IMG_LOADED } from '../constants.js';
 import { gridItemsMap, sortOptionsChanged, readSortCookie } from '../Utils.js';
 import { gridItemsData } from '../gridItemsData';
 
@@ -12,9 +13,11 @@ import { gridItemsData } from '../gridItemsData';
 // =============================================================================
 const initialState = {
   sortFilter: readSortCookie(),
-  modalImgId: '',
   blurEffect: 'non-blurred',
-  gridVisibility: 'hidden'
+  gridVisibility: 'hidden',
+  isModalOn: false,
+  modalImgId: '',
+  modalDisplayStyle: 'none'
 }
 
 // =============================================================================
@@ -34,20 +37,26 @@ export const selfiesReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         sortFilter: action.payload
       });
+
     case IMG_CLICK:
       return Object.assign({}, state, {
         modalImgId: action.payload,
-        blurEffect: 'blurred'
+        blurEffect: 'blurred',
+        isModalOn: true
       });
+
       case MODAL_CLOSED:
       return Object.assign({}, state, {
         modalImgId: '',
-        blurEffect: 'un-blurred'
+        blurEffect: 'un-blurred',
+        isModalOn: false
       });
+
     case ALL_IMGS_LOADED:
       return Object.assign({}, state, {
         gridVisibility: 'visible'        
       });
+
     case MODAL_NEXT_BTN:
       modalImgId = state.modalImgId;
       modalImgIndex = gridItemsMap.get(modalImgId);
@@ -55,8 +64,10 @@ export const selfiesReducer = (state = initialState, action) => {
       modalImgId = gridItemsData[modalImgIndex].id;
 
       return Object.assign({}, state, {
-        modalImgId: modalImgId      
+        modalImgId: modalImgId,
+        modalDisplayStyle: 'none'   
       });
+
     case MODAL_PREV_BTN:
       modalImgId = state.modalImgId;
       modalImgIndex = gridItemsMap.get(modalImgId);
@@ -64,7 +75,13 @@ export const selfiesReducer = (state = initialState, action) => {
       modalImgId = gridItemsData[modalImgIndex].id;
 
       return Object.assign({}, state, {
-        modalImgId: modalImgId      
+        modalImgId: modalImgId,
+        modalDisplayStyle: 'none'      
+      });
+      
+      case MODAL_IMG_LOADED:
+       return Object.assign({}, state, {
+        modalDisplayStyle: 'block'
       });
     default:
       sortOptionsChanged(initialState.sortFilter);

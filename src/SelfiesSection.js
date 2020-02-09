@@ -35,7 +35,6 @@ class SelfiesSection extends React.Component {
     let gridVisibility = this.props.gridVisibility;
     let spinnerDisplay = gridVisibility === 'hidden' ? 'inline-block' : 'none';
     let blurEffect = this.props.blurEffect;
-    let modalImgId = this.props.modalImgId;
 
     return (
       <React.Fragment>            
@@ -53,16 +52,12 @@ class SelfiesSection extends React.Component {
                                 likeCount={gridItemData.likeCount}
                                 date={gridItemData.date} 
                                 imgLoadCallbackEventHandler={this.imgLoadCallbackEventHandler}
-                                onImgClick={this.props.onImgClick}
                                 key={gridItemData.id} />);
             })}
           </div>
 
-          {modalImgId !== '' ? 
-            <SelfiesModalImg modalImgId={modalImgId}
-                             onModalClosed={this.props.onModalClosed}
-                             onModalNextBtn={this.props.onModalNextBtn}
-                             onModalPrevBtn={this.props.onModalPrevBtn} /> : ''
+          {this.props.isModalOn === true ? 
+            <SelfiesModalImg /> : ''
           }
         </section>
       </React.Fragment>
