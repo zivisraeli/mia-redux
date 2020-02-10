@@ -39,13 +39,10 @@ export class SelfiesWrapper extends React.Component {
   }
 
   render() {
-    console.log('1111111111111111111');
-    console.log(gridItemsData);
     return (
       <Selfies blurEffect={this.props.blurEffect} 
                              gridVisibility={this.props.gridVisibility}
                              isModalOn={this.props.isModalOn} />
-
     );
   }
 }
@@ -58,13 +55,5 @@ const mapStateToProps = function(state) {
     isModalOn: state.isModalOn
   }
 }
-
-/*const mapDispatchToProps = (dispatch) => {
-  return {
-    onAllImgsLoaded: () => {
-      return dispatch({ type: ALL_IMGS_LOADED });
-    }
-  }
-}*/
 
 export default connect(mapStateToProps)(Selfies);

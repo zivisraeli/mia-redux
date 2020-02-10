@@ -1,10 +1,13 @@
-import { SORT_ORDER, 
-	       IMG_CLICK, 
-	       MODAL_CLOSED, 
-	       ALL_IMGS_LOADED, 
-         MODAL_NEXT_BTN, 
-         MODAL_PREV_BTN,
-         MODAL_IMG_LOADED } from '../constants.js';
+import {
+  SORT_ORDER,
+  IMG_CLICK,
+  MODAL_CLOSED,
+  ALL_IMGS_LOADED,
+  MODAL_NEXT_BTN,
+  MODAL_PREV_BTN,
+  MODAL_IMG_LOADED,
+  DOG_BREED_TOGGLED
+} from '../constants.js';
 import { gridItemsMap, sortOptionsChanged, readSortCookie } from '../Utils.js';
 import { gridItemsData } from '../gridItemsData';
 
@@ -17,7 +20,8 @@ const initialState = {
   gridVisibility: 'hidden',
   isModalOn: false,
   modalImgId: '',
-  modalDisplayStyle: 'none'
+  modalDisplayStyle: 'none',
+  dogBreedEnabled: false
 }
 
 // =============================================================================
@@ -27,7 +31,7 @@ const initialState = {
 // - To avoid mutating the original state we use Object.assign() that take an empty object
 //   and a list of objects to be merged. 
 // =============================================================================
-export const selfiesReducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
   let modalImgId = '';
   let modalImgIndex = 0;
 
@@ -45,7 +49,7 @@ export const selfiesReducer = (state = initialState, action) => {
         isModalOn: true
       });
 
-      case MODAL_CLOSED:
+    case MODAL_CLOSED:
       return Object.assign({}, state, {
         modalImgId: '',
         blurEffect: 'un-blurred',
@@ -54,7 +58,7 @@ export const selfiesReducer = (state = initialState, action) => {
 
     case ALL_IMGS_LOADED:
       return Object.assign({}, state, {
-        gridVisibility: 'visible'        
+        gridVisibility: 'visible'
       });
 
     case MODAL_NEXT_BTN:
@@ -65,7 +69,7 @@ export const selfiesReducer = (state = initialState, action) => {
 
       return Object.assign({}, state, {
         modalImgId: modalImgId,
-        modalDisplayStyle: 'none'   
+        modalDisplayStyle: 'none'
       });
 
     case MODAL_PREV_BTN:
@@ -76,13 +80,19 @@ export const selfiesReducer = (state = initialState, action) => {
 
       return Object.assign({}, state, {
         modalImgId: modalImgId,
-        modalDisplayStyle: 'none'      
+        modalDisplayStyle: 'none'
       });
-      
-      case MODAL_IMG_LOADED:
-       return Object.assign({}, state, {
+
+    case MODAL_IMG_LOADED:
+      return Object.assign({}, state, {
         modalDisplayStyle: 'block'
       });
+
+    case DOG_BREED_TOGGLED:
+      return Object.assign({}, state, {
+         dogBreedEnabled: !state.dogBreedEnabled,
+      });
+
     default:
       sortOptionsChanged(initialState.sortFilter);
       return state

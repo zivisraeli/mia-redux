@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { gridItemsData } from '../gridItemsData';
-import GridItem from '../GridItem';
+import { SelfiesGridItemWrapper } from '../containers/SelfiesGridItemWrapper';
 import SelfiesModalImg from '../SelfiesModalImg';
 
 export const SelfiesSection = (props) => {
@@ -26,7 +26,7 @@ export const SelfiesSection = (props) => {
         <section className="grid-section middle-section">
           <div className={"dynamic-grid " + blurEffect} style={{visibility:gridVisibility}}>
             {gridItemsData.map((gridItemData) => {
-              return (<GridItem id={gridItemData.id}
+              return (<SelfiesGridItemWrapper id={gridItemData.id}
                                 src={gridItemData.src}
                                 caption={gridItemData.caption}
                                 isLiked={gridItemData.isLiked}

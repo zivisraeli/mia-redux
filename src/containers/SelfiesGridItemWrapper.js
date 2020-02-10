@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { gridItemsData } from './gridItemsData';
-import { getCookie, setCookie } from './Utils.js';
-import heartOutline from './images/heart-outline.png';
-import heartFull from './images/heart-full.png';
-import { IMG_CLICK } from './constants';
+import { gridItemsData } from '../gridItemsData';
+import { getCookie, setCookie } from '../Utils.js';
+import { IMG_CLICK } from '../constants';
+import { SelfiesGridItem } from '../components/SelfiesGridItem';
+import heartOutline from '../images/heart-outline.png';
+import heartFull from '../images/heart-full.png';
 
-export class GridItem extends React.Component {
+
+export class SelfiesGridItemWrapper extends React.Component {
   constructor(props) {
     super(props);
 
@@ -37,7 +39,7 @@ export class GridItem extends React.Component {
     let gridItem = gridItemsData.find((gridItem) => {
       return gridItem.id === itemId;
     });
-    
+
     if (gridItem.isLiked) {
       gridItem.isLiked = false;
       gridItem.likeCount--;
@@ -80,6 +82,7 @@ export class GridItem extends React.Component {
   }
 
   render() {
+    console.log(this.state.isLiked);
     let theHeart = heartOutline;
     let theHeartClass = 'heart';
     if (this.state.isLiked) {
@@ -88,41 +91,30 @@ export class GridItem extends React.Component {
     }
 
     return (
-      <figure id={this.props.id} className="grid-item">
-         <img src={this.props.src} 
-              className="grid-image"
-              alt={this.props.id}
-              onLoad={this.props.imgLoadCallbackEventHandler} 
-              onClick={this.props.onImgClick} />
-         <figcaption className="figcaption">
-                     {this.props.caption}&nbsp;|&nbsp;
-           <span id="like-count-span">{this.state.likeCount}</span>&nbsp;
-           <img src={require("./images/heart-likes.png")} 
-                className="heart-likes-icon" 
-                alt="heart-likes"/>'s&nbsp;|&nbsp;
-           {this.props.date}&nbsp;
-         </figcaption>
-         <img src={theHeart} 
-              className={theHeartClass} 
-              alt="heart-like" 
-              onClick={this.heartClickEventHandler} />
-       </figure>
-    );
+      <SelfiesGridItem id={this.props.id} 
+                       src={this.props.src}
+                       caption={this.props.caption}
+                       date={this.props.date}
+                       isLiked={this.state.isLiked}
+                       likeCount={this.state.likeCount}
+                       imgLoadCallbackEventHandler={this.props.imgLoadCallbackEventHandler}
+                       heartClickEventHandler={this.heartClickEventHandler} 
+                       key={this.props.id}/>);
   }
 }
 
 const mapStateToProps = function(state) {
-  return { }
+  return {}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onImgClick: (event) => {
       let itemId = event.target.parentElement.id;
-      return dispatch({type: IMG_CLICK, payload: itemId});
+      return dispatch({ type: IMG_CLICK, payload: itemId });
     }
   }
 }
 
-export default connect(mapStateToProps, 
-                       mapDispatchToProps)(GridItem);
+export default connect(mapStateToProps,
+  mapDispatchToProps)(SelfiesGridItemWrapper);

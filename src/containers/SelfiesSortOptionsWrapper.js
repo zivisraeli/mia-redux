@@ -5,7 +5,7 @@ import { setCookie } from '../Utils.js';
 import { SORT_ORDER } from '../constants';
 import { SelfiesSortOptions } from '../components/SelfiesSortOptions'
 
-export class SelfiesSortOptionsWrapper extends React.Component {  
+export class SelfiesSortOptionsWrapper extends React.Component {
   render() {
     return (<SelfiesSortOptions sortFilter={this.props.sortFilter} 
                                             onSortChange={this.props.onSortChange} />);

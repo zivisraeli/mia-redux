@@ -9,7 +9,7 @@ import {
 import HeaderImg from './HeaderImg';
 import { About } from './components/About';
 import SelfiesWrapper from './containers/SelfiesWrapper';
-import { Fans } from './Fans';
+import { Fans } from './components/Fans';
 import { Kitbull } from './components/Kitbull';
 
 import './style.css';

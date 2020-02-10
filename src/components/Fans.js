@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { Footer } from './components/Footer';
+import { Footer } from './Footer';
 import { FansHeader } from './FansHeader';
-import FansSection from './FansSection';
+import FansSectionWrapper from '../containers/FansSectionWrapper';
 
 export const Fans = (props) => {
   return (
     <React.Fragment>
         <main>
           <FansHeader />
-          <FansSection />
+          <FansSectionWrapper />
         </main>
         <Footer />
       </React.Fragment>

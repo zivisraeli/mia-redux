@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SelfiesHeader } from './SelfiesHeader';
-import SelfiesSectionContainer from '../containers/SelfiesSectionContainer';
+import SelfiesSectionWrapper from '../containers/SelfiesSectionWrapper';
 import { Footer } from './Footer';
 
 export const Selfies = (props) => {
@@ -9,7 +9,7 @@ export const Selfies = (props) => {
     <React.Fragment>
       <main id="grid-section">
         <SelfiesHeader />
-        <SelfiesSectionContainer blurEffect={props.blurEffect} 
+        <SelfiesSectionWrapper blurEffect={props.blurEffect} 
                                  gridVisibility={props.gridVisibility}
                                  isModalOn={props.isModalOn} />
       </main>

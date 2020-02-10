@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import App from './App.js';
-import { selfiesReducer } from './reducers/selfiesReducer.js';
+import { reducer } from './reducers/reducer.js';
 
 // =============================================================================
 // - The Redux store holds the state of the app.
@@ -13,7 +13,7 @@ import { selfiesReducer } from './reducers/selfiesReducer.js';
 // - Provider componet will take care passing down the 'store' to all compoenents 
 //   instead of manually passing it down as a property.
 // =============================================================================
-const store = createStore(selfiesReducer);
+const store = createStore(reducer);
 
 ReactDOM.render((<Provider store={store}>
                    <App />
