@@ -1,9 +1,8 @@
 import React from 'react';
 
-class FansHeader extends React.Component {
-  render() {
-    return (
-      <React.Fragment>
+export const FansHeader = (props) => {
+  return (
+    <React.Fragment>
         <h1>Join My Fan Club!</h1>
         <section id="form-header">
           <ul className="customed-ul">
@@ -14,8 +13,5 @@ class FansHeader extends React.Component {
           </ul>
         </section>
       </React.Fragment>
-    );
-  }
+  );
 }
-
-export default FansHeader;

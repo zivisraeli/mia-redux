@@ -7,10 +7,10 @@ import {
 } from "react-router-dom";
  
 import HeaderImg from './HeaderImg';
-import About from './About';
-import Selfies from './containers/Selfies';
-import Fans from './Fans';
-import Kitbull from './Kitbull';
+import { About } from './components/About';
+import SelfiesWrapper from './containers/SelfiesWrapper';
+import { Fans } from './Fans';
+import { Kitbull } from './components/Kitbull';
 
 import './style.css';
 import './spinner.css';
@@ -76,7 +76,7 @@ class App extends React.Component {
             <About />
           </Route> 
           <Route path={`${contextPath}/selfies`}>
-            <Selfies />
+            <SelfiesWrapper />
           </Route>  
           <Route path={`${contextPath}/fans`}>
             <Fans />
