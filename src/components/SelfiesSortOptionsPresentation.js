@@ -1,5 +1,9 @@
 import React from 'react';
 
+// =============================================================================
+// Since SelfiesSortOptionsPresentation is now split from Redux, it contains no state relate code.
+// As such I don't need it to be a "heavy-weight" React component but rather a stateless functional component.
+// =============================================================================
 export const SelfiesSortOptionsPresentation = (props) => {
   let optMap = {
     'likes+1': 'Like number; Asc.',

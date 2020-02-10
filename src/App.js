@@ -8,7 +8,7 @@ import {
  
 import HeaderImg from './HeaderImg';
 import About from './About';
-import Selfies from './Selfies';
+import Selfies from './containers/Selfies';
 import Fans from './Fans';
 import Kitbull from './Kitbull';
 

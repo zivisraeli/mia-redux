@@ -1,12 +1,10 @@
 import React from 'react';
-
-import SelfiesHeader from './SelfiesHeader';
-import SelfiesSection from './SelfiesSection';
-import Footer from './Footer';
-import { gridItemsData } from './gridItemsData';
-import { getCookie } from './Utils.js';
 import { connect } from 'react-redux';
-import { ALL_IMGS_LOADED } from './constants';
+
+import { SelfiesPresentational } from '../components/SelfiesPresentational'
+import { gridItemsData } from '../gridItemsData';
+import { getCookie } from '../Utils.js';
+import { ALL_IMGS_LOADED } from '../constants';
 
 export class Selfies extends React.Component {
   // =============================================================================
@@ -29,7 +27,7 @@ export class Selfies extends React.Component {
     if (likeCookie != null) {
       likeArray = JSON.parse(likeCookie);
     }
-    
+
     likeArray.forEach((id) => {
       let gridElem = gridItemsData.find((elem) => {
         return elem.id === id;
@@ -43,16 +41,11 @@ export class Selfies extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
-        <main id="grid-section">
-          <SelfiesHeader />
-          <SelfiesSection blurEffect={this.props.blurEffect} 
+      <SelfiesPresentational blurEffect={this.props.blurEffect} 
                           gridVisibility={this.props.gridVisibility}
                           onAllImgsLoaded={this.props.onAllImgsLoaded}
                           isModalOn={this.props.isModalOn} />
-        </main>
-        <Footer />        
-      </React.Fragment>
+
     );
   }
 }
@@ -67,12 +60,12 @@ const mapStateToProps = function(state) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {  
+  return {
     onAllImgsLoaded: () => {
-      return dispatch({type: ALL_IMGS_LOADED});
+      return dispatch({ type: ALL_IMGS_LOADED });
     }
   }
 }
 
-export default connect(mapStateToProps, 
-                       mapDispatchToProps)(Selfies);
+export default connect(mapStateToProps,
+  mapDispatchToProps)(Selfies);
