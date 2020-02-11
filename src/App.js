@@ -5,9 +5,9 @@ import {
   Route,
   Link
 } from "react-router-dom";
- 
-import HeaderImg from './HeaderImg';
-import { About } from './components/About';
+
+import { About } from './components/About'; 
+import HeaderImgWrapper from './containers/HeaderImgWrapper';
 import SelfiesWrapper from './containers/SelfiesWrapper';
 import { Fans } from './components/Fans';
 import { Kitbull } from './components/Kitbull';
@@ -46,7 +46,7 @@ class App extends React.Component {
     return (      
        <Router>
         <header>
-          <HeaderImg />
+          <HeaderImgWrapper />
           
           <nav id="navbar">
             <Link to={`${contextPath}/about`} onClick={this.menuClickEventHandler} 

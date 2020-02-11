@@ -6,7 +6,8 @@ import {
   MODAL_NEXT_BTN,
   MODAL_PREV_BTN,
   MODAL_IMG_LOADED,
-  DOG_BREED_TOGGLED
+  DOG_BREED_TOGGLED,
+  HEADER_IMG_LOADED
 } from '../constants.js';
 import { gridItemsMap, sortOptionsChanged, readSortCookie } from '../Utils.js';
 import { gridItemsData } from '../gridItemsData';
@@ -21,7 +22,9 @@ const initialState = {
   isModalOn: false,
   modalImgId: '',
   modalDisplayStyle: 'none',
-  dogBreedEnabled: false
+  dogBreedEnabled: false,
+  headerImgBorderStyle: '',
+  headerImgId: 'id02'
 }
 
 // =============================================================================
@@ -90,7 +93,15 @@ export const reducer = (state = initialState, action) => {
 
     case DOG_BREED_TOGGLED:
       return Object.assign({}, state, {
-         dogBreedEnabled: !state.dogBreedEnabled,
+        dogBreedEnabled: !state.dogBreedEnabled,
+      });
+    case HEADER_IMG_LOADED:
+      // =============================================================================
+      // Without this feature the border will be drawn first as a straight line and then 
+      // the image would appear. And so, I need to waiting for the image to be loaded first. 
+      // =============================================================================
+      return Object.assign({}, state, {        
+        headerImgBorderStyle: '1px solid black',
       });
 
     default:
