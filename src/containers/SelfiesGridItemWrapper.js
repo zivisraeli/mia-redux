@@ -82,7 +82,6 @@ export class SelfiesGridItemWrapper extends React.Component {
   }
 
   render() {
-    console.log(this.state.isLiked);
     let theHeart = heartOutline;
     let theHeartClass = 'heart';
     if (this.state.isLiked) {
@@ -99,11 +98,12 @@ export class SelfiesGridItemWrapper extends React.Component {
                        likeCount={this.state.likeCount}
                        imgLoadCallbackEventHandler={this.props.imgLoadCallbackEventHandler}
                        heartClickEventHandler={this.heartClickEventHandler} 
+                       onImgClick={this.props.onImgClick}
                        key={this.props.id}/>);
   }
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = (state) => {
   return {}
 }
 

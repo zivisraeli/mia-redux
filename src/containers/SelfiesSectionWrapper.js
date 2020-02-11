@@ -7,7 +7,7 @@ import { ALL_IMGS_LOADED } from '../constants';
 
 let loadedImgCounter = 0;
 
-export class SelfiesSectionContainer extends React.Component {
+export class SelfiesSectionWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.imgLoadCallbackEventHandler = this.imgLoadCallbackEventHandler.bind(this);
@@ -55,4 +55,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps,
-  mapDispatchToProps)(SelfiesSectionContainer);
+  mapDispatchToProps)(SelfiesSectionWrapper)

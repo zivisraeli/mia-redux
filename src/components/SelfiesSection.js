@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { gridItemsData } from '../gridItemsData';
-import { SelfiesGridItemWrapper } from '../containers/SelfiesGridItemWrapper';
-import SelfiesModalImg from '../SelfiesModalImg';
+import SelfiesGridItemWrapper from '../containers/SelfiesGridItemWrapper';
+import SelfiesModalImgWrapper from '../containers/SelfiesModalImgWrapper';
 
 export const SelfiesSection = (props) => {
 
@@ -27,18 +27,18 @@ export const SelfiesSection = (props) => {
           <div className={"dynamic-grid " + blurEffect} style={{visibility:gridVisibility}}>
             {gridItemsData.map((gridItemData) => {
               return (<SelfiesGridItemWrapper id={gridItemData.id}
-                                src={gridItemData.src}
-                                caption={gridItemData.caption}
-                                isLiked={gridItemData.isLiked}
-                                likeCount={gridItemData.likeCount}
-                                date={gridItemData.date} 
-                                imgLoadCallbackEventHandler={props.imgLoadCallbackEventHandler}
-                                key={gridItemData.id} />);
+                                              src={gridItemData.src}
+                                              caption={gridItemData.caption}
+                                              isLiked={gridItemData.isLiked}
+                                              likeCount={gridItemData.likeCount}
+                                              date={gridItemData.date} 
+                                              imgLoadCallbackEventHandler={props.imgLoadCallbackEventHandler}
+                                              key={gridItemData.id} />);
             })}
           </div>
 
           {props.isModalOn === true ? 
-            <SelfiesModalImg /> : ''
+            <SelfiesModalImgWrapper /> : ''
           }
         </section>
       </React.Fragment>
