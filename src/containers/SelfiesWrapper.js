@@ -41,13 +41,13 @@ export class SelfiesWrapper extends React.Component {
   render() {
     return (
       <Selfies blurEffect={this.props.blurEffect} 
-                             gridVisibility={this.props.gridVisibility}
-                             isModalOn={this.props.isModalOn} />
+               gridVisibility={this.props.gridVisibility}
+               isModalOn={this.props.isModalOn} />
     );
   }
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = (state) => {
   return {
     sortFilter: state.sortFilter,
     blurEffect: state.blurEffect,
@@ -56,4 +56,4 @@ const mapStateToProps = function(state) {
   }
 }
 
-export default connect(mapStateToProps)(Selfies);
+export default connect(mapStateToProps)(SelfiesWrapper);

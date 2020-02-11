@@ -1,16 +1,6 @@
 import React from 'react';
 
-import heartOutline from '../images/heart-outline.png';
-import heartFull from '../images/heart-full.png';
-
 export const SelfiesGridItem = (props) => {
-  let theHeart = heartOutline;
-  let theHeartClass = 'heart';
-  if (props.isLiked) {
-    theHeart = heartFull;
-    theHeartClass = 'heart animatedHeartBeat';
-  }
-
   return (
     <figure id={props.id} className="grid-item">
       <img src={props.src} 
@@ -26,8 +16,8 @@ export const SelfiesGridItem = (props) => {
           alt="heart-likes"/>'s&nbsp;|&nbsp;
       {props.date}&nbsp;
     </figcaption>
-    <img src={theHeart} 
-         className={theHeartClass} 
+    <img src={props.theHeartImg} 
+         className={props.theHeartImgClass} 
          alt="heart-like" 
          onClick={props.heartClickEventHandler} />
     </figure>

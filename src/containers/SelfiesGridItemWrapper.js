@@ -82,11 +82,11 @@ export class SelfiesGridItemWrapper extends React.Component {
   }
 
   render() {
-    let theHeart = heartOutline;
-    let theHeartClass = 'heart';
+    let theHeartImg = heartOutline;
+    let theHeartImgClass = 'heart';
     if (this.state.isLiked) {
-      theHeart = heartFull;
-      theHeartClass = 'heart animatedHeartBeat';
+      theHeartImg = heartFull;
+      theHeartImgClass = 'heart animatedHeartBeat';
     }
 
     return (
@@ -99,6 +99,8 @@ export class SelfiesGridItemWrapper extends React.Component {
                        imgLoadCallbackEventHandler={this.props.imgLoadCallbackEventHandler}
                        heartClickEventHandler={this.heartClickEventHandler} 
                        onImgClick={this.props.onImgClick}
+                       theHeartImg={theHeartImg}
+                       theHeartImgClass={theHeartImgClass}
                        key={this.props.id}/>);
   }
 }
