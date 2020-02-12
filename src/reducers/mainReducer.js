@@ -10,7 +10,9 @@ import {
   HEADER_IMG_LOADED,
   IMG_DRAG_ENTER,
   IMG_DRAG_LEAVE,
-  IMG_DRAG_DROP
+  IMG_DRAG_DROP,
+  FILTER_CHANGED
+
 } from '../constants.js';
 import { gridItemsMap, sortOptionsChanged, readSortCookie } from '../Utils.js';
 import { gridItemsData } from '../gridItemsData';
@@ -29,6 +31,7 @@ const initialState = {
   headerImgBorderStyle: '',
   headerImgId: 'id02',
   headerImgClassName: 'header-img',
+  filterString: ''
 }
 
 // =============================================================================
@@ -40,19 +43,21 @@ const initialState = {
 // =============================================================================
 export const mainReducer = (state = initialState, action) => {
   let modalImgId = '';
-  let modalImgIndex = 0;
+
+  let payload = action.payload;
 
   switch (action.type) {
     case SORT_ORDER:
-      sortOptionsChanged(action.payload);
+      sortOptionsChanged(payload);
       return Object.assign({}, state, {
-        sortFilter: action.payload
+        sortFilter: payload
       });
 
     case IMG_CLICK:
       return Object.assign({}, state, {
-        modalImgId: action.payload,
+        modalImgId: payload,
         blurEffect: 'blurred',
+        modalDisplayStyle: 'none',
         isModalOn: true
       });
 
@@ -68,31 +73,17 @@ export const mainReducer = (state = initialState, action) => {
         gridVisibility: 'visible'
       });
 
-    case MODAL_NEXT_BTN:
-      modalImgId = state.modalImgId;
-      modalImgIndex = gridItemsMap.get(modalImgId);
-      modalImgIndex = (modalImgIndex + 1) === gridItemsData.length ? 0 : modalImgIndex + 1;
-      modalImgId = gridItemsData[modalImgIndex].id;
-
-      return Object.assign({}, state, {
-        modalImgId: modalImgId,
-        modalDisplayStyle: 'none'
-      });
-
     case MODAL_PREV_BTN:
-      modalImgId = state.modalImgId;
-      modalImgIndex = gridItemsMap.get(modalImgId);
-      modalImgIndex = modalImgIndex === 0 ? gridItemsData.length - 1 : modalImgIndex - 1;
-      modalImgId = gridItemsData[modalImgIndex].id;
-
+    case MODAL_NEXT_BTN:
       return Object.assign({}, state, {
-        modalImgId: modalImgId,
-        modalDisplayStyle: 'none'
+        modalImgId: payload.modalImgId,
+        modalDisplayStyle: payload.modalDisplayStyle
       });
+
 
     case MODAL_IMG_LOADED:
       return Object.assign({}, state, {
-        modalDisplayStyle: 'block'
+        modalDisplayStyle: payload.modalDisplayStyle,
       });
 
     case DOG_BREED_TOGGLED:
@@ -101,20 +92,25 @@ export const mainReducer = (state = initialState, action) => {
       });
 
     case HEADER_IMG_LOADED:
-      return Object.assign({}, state, {       
-        headerImgBorderStyle: action.payload,
+      return Object.assign({}, state, {
+        headerImgBorderStyle: payload,
       });
 
     case IMG_DRAG_ENTER:
     case IMG_DRAG_LEAVE:
       return Object.assign({}, state, {
-        headerImgClassName: action.payload,
-      }); 
+        headerImgClassName: payload,
+      });
 
     case IMG_DRAG_DROP:
       return Object.assign({}, state, {
-        headerImgId: action.payload.draggedImgId,
-        headerImgClassName: action.payload.headerImgClassName
+        headerImgId: payload.draggedImgId,
+        headerImgClassName: payload.headerImgClassName
+      });
+
+    case FILTER_CHANGED:
+      return Object.assign({}, state, {
+        filterString: payload,
       });
 
     default:

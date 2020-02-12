@@ -13,19 +13,15 @@ export const SelfiesSection = (props) => {
   //   This will happen if the image is clicked on in the GridItem component in which case
   //   the imgClickCallbackEventHandler() is invoked that changes the state.modalImgId value.
   // =============================================================================  
-  let gridVisibility = props.gridVisibility;
-  let spinnerDisplay = gridVisibility === 'hidden' ? 'inline-block' : 'none';
-  let blurEffect = props.blurEffect;
-
   return (
     <React.Fragment>            
-        <div id="spinner-div" className="lds-ripple" style={{display:spinnerDisplay}}>
+        <div id="spinner-div" className="lds-ripple" style={{display:props.spinnerDisplay}}>
           <div></div>
           <div></div>
         </div>
         <section className="grid-section middle-section">
-          <div className={"dynamic-grid " + blurEffect} style={{visibility:gridVisibility}}>
-            {gridItemsData.map((gridItemData) => {
+          <div className={"dynamic-grid " + props.blurEffect} style={{visibility:props.gridVisibility}}>
+            {props.filteredGridItemsData.map((gridItemData) => {
               return (<SelfiesGridItemWrapper id={gridItemData.id}
                                               src={gridItemData.src}
                                               caption={gridItemData.caption}
@@ -38,7 +34,7 @@ export const SelfiesSection = (props) => {
           </div>
 
           {props.isModalOn === true ? 
-            <SelfiesModalImgWrapper /> : ''
+            <SelfiesModalImgWrapper filteredGridItemsData={props.filteredGridItemsData} /> : ''
           }
         </section>
       </React.Fragment>

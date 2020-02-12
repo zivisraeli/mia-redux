@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SelfiesSortOptionsWrapper from '../containers/SelfiesSortOptionsWrapper';
+import SelfiesFilterWrapper from '../containers/SelfiesFilterWrapper';
 
 export const SelfiesHeader = (props) => {
   return (
@@ -9,6 +10,9 @@ export const SelfiesHeader = (props) => {
 	      <ul className="customed-ul">
 	        <li>
 	          Sort Images By: <SelfiesSortOptionsWrapper />        
+	        </li>
+	        <li>
+	           Filter Images By Caption: <SelfiesFilterWrapper />
 	        </li>
 	        <li>Click on the image for a full image view.</li>
 	        <li className="desktopLi">Click on the heart icon to like the image!</li>

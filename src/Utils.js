@@ -47,7 +47,8 @@ export const readSortCookie = () => {
 //   times when I need to search for it I don't need to loop through the array. 
 //   the map is populated during renderGrid. 
 // =============================================================================
-export const gridItemsMap = new Map();
+export let gridItemsMap = new Map();
+export let globalModalImg = {};
 
 // =============================================================================
 // This function takes 2 parameters, compare them and return true or false.

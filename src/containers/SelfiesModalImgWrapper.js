@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { gridItemsData } from '../gridItemsData';
-import { gridItemsMap } from '../Utils';
+import { gridItemsMap, globalModalImg } from '../Utils';
 import { MODAL_NEXT_BTN, MODAL_PREV_BTN, MODAL_IMG_LOADED, MODAL_CLOSED } from '../constants';
 import { SelfiesModalImg } from '../components/SelfiesModalImg';
 
@@ -80,8 +80,8 @@ export class SelfiesModalImgWrapper extends React.Component {
     // =============================================================================
     return (
       <SelfiesModalImg onModalImgLoaded={this.onLoadEventHandler}
-                       onModalPrevBtn={this.props.onModalPrevBtn}
-                       onModalNextBtn={this.props.onModalNextBtn}
+                       onModalPrevBtn={() => this.props.onModalPrevBtn(this.props.filteredGridItemsData)}
+                       onModalNextBtn={() => this.props.onModalNextBtn(this.props.filteredGridItemsData)}
                        onModalClosed={this.props.onModalClosed}
                        theModalImg={theModalImg}
                        containerDivMaxWidth={this.containerDivMaxWidth}
@@ -99,14 +99,26 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onModalNextBtn: () => {
-      return dispatch({ type: MODAL_NEXT_BTN });
+     onModalPrevBtn: (filteredGridItemsData) => {
+      let items = filteredGridItemsData;
+      let itemIndex = items.map(function(item) { return item.id; }).indexOf(globalModalImg.id);      
+      itemIndex = itemIndex === 0 ? items.length - 1 : itemIndex - 1;
+      let modalImgId = items[itemIndex].id;
+      globalModalImg.id = modalImgId;
+
+      return dispatch({ type: MODAL_PREV_BTN, payload:{modalImgId: modalImgId, modalDisplayStyle: 'none'}});
     },
-    onModalPrevBtn: () => {
-      return dispatch({ type: MODAL_PREV_BTN });
-    },
+    onModalNextBtn: (filteredGridItemsData) => {
+      let items = filteredGridItemsData;
+      let itemIndex = items.map(function(item) { return item.id; }).indexOf(globalModalImg.id);
+      itemIndex = (itemIndex + 1) === items.length ? 0 : itemIndex + 1;
+      let modalImgId = items[itemIndex].id;
+      globalModalImg.id = modalImgId;
+
+      return dispatch({ type: MODAL_NEXT_BTN, payload:{modalImgId: modalImgId, modalDisplayStyle: 'none'}});
+    }, 
     onModalImgLoaded: () => {
-      return dispatch({ type: MODAL_IMG_LOADED });
+      return dispatch({ type: MODAL_IMG_LOADED, payload: {modalDisplayStyle: 'block'} });
     },
     onModalClosed: () => {
       return dispatch({ type: MODAL_CLOSED });

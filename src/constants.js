@@ -11,3 +11,4 @@ export const HEADER_IMG_LOADED = 'HEADER_IMG_LOADED';
 export const IMG_DRAG_ENTER    = 'IMG_DRAG_ENTER';
 export const IMG_DRAG_LEAVE    = 'IMG_DRAG_LEAVE';
 export const IMG_DRAG_DROP     = 'IMG_DRAG_DROP';
+export const FILTER_CHANGED    = 'FILTER_CHANGED';

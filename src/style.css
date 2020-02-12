@@ -639,6 +639,10 @@ textarea {
   outline: none;
 }
 
+#grid-section input {
+  width: 90px;
+}
+
 /* since all other input element are 300px wide, here there r multiple inputs (radio btns) */
 #radio-btns-div {
   display: inline-block;

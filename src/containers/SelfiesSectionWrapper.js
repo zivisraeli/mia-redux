@@ -33,9 +33,18 @@ export class SelfiesSectionWrapper extends React.Component {
   //   the imgClickCallbackEventHandler() is invoked that changes the state.modalImgId value.
   // =============================================================================  
   render() {
+    let filteredGridItemsData = gridItemsData.filter((gridItem) => {
+      let boolean = gridItem.caption.toLowerCase().includes(this.props.filterString);
+      return boolean;
+    });
+
+    let spinnerDisplay = this.props.gridVisibility === 'hidden' ? 'inline-block' : 'none';
+
     return (
-      <SelfiesSection blurEffect={this.props.blurEffect} 
-                      gridVisibility={this.props.gridVisibility}
+      <SelfiesSection filteredGridItemsData={filteredGridItemsData}
+                      spinnerDisplay={spinnerDisplay}
+                      blurEffect={this.props.blurEffect} 
+                      gridVisibility = { this.props.gridVisibility }                      
                       isModalOn={this.props.isModalOn}
                       imgLoadCallbackEventHandler={this.imgLoadCallbackEventHandler} />
     );
@@ -43,7 +52,10 @@ export class SelfiesSectionWrapper extends React.Component {
 }
 
 const mapStateToProps = function(state) {
-  return { sortFilter: state.sortFilter }
+  return {
+    sortFilter: state.sortFilter,
+    filterString: state.filterString
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

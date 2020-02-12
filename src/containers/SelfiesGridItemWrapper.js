@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { gridItemsData } from '../gridItemsData';
-import { getCookie, setCookie } from '../Utils.js';
+import { getCookie, setCookie, globalModalImg } from '../Utils.js';
 import { IMG_CLICK } from '../constants';
 import { SelfiesGridItem } from '../components/SelfiesGridItem';
 import heartOutline from '../images/heart-outline.png';
@@ -112,8 +112,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onImgClick: (event) => {
+    onImgClick: (event) => {      
       let itemId = event.target.parentElement.id;
+      globalModalImg.id = itemId;
       return dispatch({ type: IMG_CLICK, payload: itemId });
     },
     onDragStart: (event) => {
