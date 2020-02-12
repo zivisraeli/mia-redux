@@ -7,7 +7,10 @@ import {
   MODAL_PREV_BTN,
   MODAL_IMG_LOADED,
   DOG_BREED_TOGGLED,
-  HEADER_IMG_LOADED
+  HEADER_IMG_LOADED,
+  IMG_DRAG_ENTER,
+  IMG_DRAG_LEAVE,
+  IMG_DRAG_DROP
 } from '../constants.js';
 import { gridItemsMap, sortOptionsChanged, readSortCookie } from '../Utils.js';
 import { gridItemsData } from '../gridItemsData';
@@ -24,7 +27,8 @@ const initialState = {
   modalDisplayStyle: 'none',
   dogBreedEnabled: false,
   headerImgBorderStyle: '',
-  headerImgId: 'id02'
+  headerImgId: 'id02',
+  headerImgClassName: 'header-img',
 }
 
 // =============================================================================
@@ -34,7 +38,7 @@ const initialState = {
 // - To avoid mutating the original state we use Object.assign() that take an empty object
 //   and a list of objects to be merged. 
 // =============================================================================
-export const reducer = (state = initialState, action) => {
+export const mainReducer = (state = initialState, action) => {
   let modalImgId = '';
   let modalImgIndex = 0;
 
@@ -95,13 +99,22 @@ export const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         dogBreedEnabled: !state.dogBreedEnabled,
       });
+
     case HEADER_IMG_LOADED:
-      // =============================================================================
-      // Without this feature the border will be drawn first as a straight line and then 
-      // the image would appear. And so, I need to waiting for the image to be loaded first. 
-      // =============================================================================
-      return Object.assign({}, state, {        
-        headerImgBorderStyle: '1px solid black',
+      return Object.assign({}, state, {       
+        headerImgBorderStyle: action.payload,
+      });
+
+    case IMG_DRAG_ENTER:
+    case IMG_DRAG_LEAVE:
+      return Object.assign({}, state, {
+        headerImgClassName: action.payload,
+      }); 
+
+    case IMG_DRAG_DROP:
+      return Object.assign({}, state, {
+        headerImgId: action.payload.draggedImgId,
+        headerImgClassName: action.payload.headerImgClassName
       });
 
     default:

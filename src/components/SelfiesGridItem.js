@@ -7,7 +7,8 @@ export const SelfiesGridItem = (props) => {
            className="grid-image"
            alt={props.id}
            onLoad={props.imgLoadCallbackEventHandler} 
-           onClick={props.onImgClick} />
+           onClick={props.onImgClick}
+           onDragStart={props.onDragStart} />
     <figcaption className="figcaption">
                  {props.caption}&nbsp;|&nbsp;
       <span id="like-count-span">{props.likeCount}</span>&nbsp;

@@ -99,6 +99,7 @@ export class SelfiesGridItemWrapper extends React.Component {
                        imgLoadCallbackEventHandler={this.props.imgLoadCallbackEventHandler}
                        heartClickEventHandler={this.heartClickEventHandler} 
                        onImgClick={this.props.onImgClick}
+                       onDragStart={this.props.onDragStart}
                        theHeartImg={theHeartImg}
                        theHeartImgClass={theHeartImgClass}
                        key={this.props.id}/>);
@@ -114,6 +115,10 @@ const mapDispatchToProps = (dispatch) => {
     onImgClick: (event) => {
       let itemId = event.target.parentElement.id;
       return dispatch({ type: IMG_CLICK, payload: itemId });
+    },
+    onDragStart: (event) => {
+      let draggedImgId = event.target.alt;
+      event.dataTransfer.setData('draggedImgId', draggedImgId);
     }
   }
 }

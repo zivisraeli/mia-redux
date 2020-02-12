@@ -7,11 +7,11 @@ import FansSectionWrapper from '../containers/FansSectionWrapper';
 export const Fans = (props) => {
   return (
     <React.Fragment>
-        <main>
-          <FansHeader />
-          <FansSectionWrapper />
-        </main>
-        <Footer />
-      </React.Fragment>
+      <main>
+        <FansHeader />
+        <FansSectionWrapper />
+      </main>
+      <Footer />
+    </React.Fragment>
   );
 }
