@@ -14,8 +14,88 @@ import {
   FILTER_CHANGED
 
 } from '../constants.js';
-import { gridItemsMap, sortOptionsChanged, readSortCookie } from '../Utils.js';
+import { getCookie } from '../Utils.js';
 import { gridItemsData } from '../gridItemsData';
+
+// =============================================================================
+// Find the select option element pointed to by the cookie.
+// The cookie string is the same as the options' id. 
+// - read 'sort' cookie 
+// - sort the gridItems array.
+// - return the sortCookie.
+// =============================================================================
+const readSortCookie = () => {
+  let sortCookie = getCookie('sort');
+  if (sortCookie === null) {
+    sortCookie = 'likes-1'; // default value
+  }
+
+  let sortArr = sortCookie.match('(.*)([-+]1)');
+  let sortAttr = sortArr[1];
+  let sortDirection = sortArr[2];
+
+  sortGridItems(sortAttr, sortDirection);
+  return sortCookie;
+}
+
+// =============================================================================
+// This function takes 2 parameters, compare them and return true or false.
+// Javascript sort function take a "compare" function as a parameter. 
+// Since gridItemsData is imported, Javascript would allow to change it.
+// An imported symbol is akin to having a const symbol. 
+// =============================================================================
+const sortGridItems = (sortAttr, sortDirection) => {
+  let sortedGridItems = gridItemsData.sort((item1, item2) => {
+    let retVal = 0;
+    if (sortAttr === "captions") {
+      retVal = item1.caption.toUpperCase() > item2.caption.toUpperCase() ? 1 : -1;
+    } else {
+      retVal = item1.likeCount > item2.likeCount ? 1 : -1
+    }
+    return retVal * sortDirection;
+  });
+
+  // Since gridItemsData is imported I can't change it by doing gridItemsData = sortedGridItems
+  // Rather I need to change the individual elements.
+  sortedGridItems.forEach((gridItem, index) => {
+    gridItemsData[index] = gridItem;
+  });
+}
+
+// =============================================================================
+// Selfies component provides the sortOptionsChangedCallback method to its children so 
+// upon changing the sort option (in the SelfiesHeaderSortOptions), this component is notifed.
+// Alternatively, I could've made the component listens to onChange event (that will bubble 
+// up from the SelfiesHeaderSortOptions), however, the sort option can change not 
+// necessarily as a result of an event; initally it is changed based on the cookie value. 
+// =============================================================================
+ const sortOptionsChanged = (sortValue) => {
+  let sortAttr = '';
+  let sortDirection = '';
+
+  switch (sortValue) {
+    case 'likes+1':
+      sortAttr = 'likes';
+      sortDirection = 1;
+      break;
+    case 'likes-1':
+      sortAttr = 'likes';
+      sortDirection = -1;
+      break;
+    case 'captions+1':
+      sortAttr = 'captions';
+      sortDirection = 1;
+      break;
+    case 'captions-1':
+      sortAttr = 'captions';
+      sortDirection = -1;
+      break;
+    default:
+      break;
+  }
+
+  sortGridItems(sortAttr, sortDirection);
+}
 
 // =============================================================================
 // State
@@ -42,8 +122,6 @@ const initialState = {
 //   and a list of objects to be merged. 
 // =============================================================================
 export const mainReducer = (state = initialState, action) => {
-  let modalImgId = '';
-
   let payload = action.payload;
 
   switch (action.type) {

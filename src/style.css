@@ -310,12 +310,12 @@ the grid
   border-radius: .2em;
   font-size: 13px;
   background: linear-gradient(to bottom, #ffffff, orange);
+  box-shadow: 1px 1px 4px #C0C0C0;
   outline: none;
 }
 
 /* I chose box-shadow rather then border manipulation to avoid "jitter" */
 #select-option-div select:hover {
-  box-shadow: 0 0 2px 2px var(--gray-color-border);
   cursor: pointer;
 }
 
@@ -633,6 +633,7 @@ input[type=tel],
 textarea {
   font: 1em calibri;
   width: 300px;
+  padding-left: 5px;
   box-sizing: border-box;
   border: 1px solid #999;
   box-shadow: 1px 1px 4px #C0C0C0;
@@ -646,7 +647,6 @@ textarea {
 /* since all other input element are 300px wide, here there r multiple inputs (radio btns) */
 #radio-btns-div {
   display: inline-block;
-
   text-align: left;
   width: 300px;
 }

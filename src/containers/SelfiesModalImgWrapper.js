@@ -46,7 +46,7 @@ export class SelfiesModalImgWrapper extends React.Component {
   }
 
   render() {
-    let modalImgIndex = gridItemsMap.get(this.props.modalImgId);
+    let modalImgIndex = gridItemsData.map(function(item) { return item.id; }).indexOf(globalModalImg.id);
     let gridItem = gridItemsData[modalImgIndex];
 
     let arrSrc = gridItem.src.match('(.*mia-).*-(.*)(.jpg$)');
