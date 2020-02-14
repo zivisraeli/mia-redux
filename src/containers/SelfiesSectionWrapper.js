@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { gridItemsData } from '../gridItemsData';
+import { gridItems } from '../gridItemsData';
 import { SelfiesSection } from '../components/SelfiesSection';
 import { ALL_IMGS_LOADED } from '../constants';
 
@@ -19,7 +19,7 @@ export class SelfiesSectionWrapper extends React.Component {
   // =============================================================================  
   imgLoadCallbackEventHandler() {
     loadedImgCounter++;
-    if (loadedImgCounter === gridItemsData.length) {
+    if (loadedImgCounter === gridItems.data.length) {
       loadedImgCounter = 0;
       this.props.onAllImgsLoaded();
     }
@@ -33,7 +33,7 @@ export class SelfiesSectionWrapper extends React.Component {
   //   the imgClickCallbackEventHandler() is invoked that changes the state.modalImgId value.
   // =============================================================================  
   render() {
-    let filteredGridItemsData = gridItemsData.filter((gridItem) => {
+    let filteredGridItemsData = gridItems.data.filter((gridItem) => {
       let boolean = gridItem.caption.toLowerCase().includes(this.props.filterString);
       return boolean;
     });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { gridItemsData } from '../gridItemsData';
+import { gridItems } from '../gridItemsData';
 import { getCookie, setCookie, globalModalImg } from '../Utils.js';
 import { IMG_CLICK } from '../constants';
 import { SelfiesGridItem } from '../components/SelfiesGridItem';
@@ -36,7 +36,7 @@ export class SelfiesGridItemWrapper extends React.Component {
   // =============================================================================
   heartClickEventHandler = (event) => {
     let itemId = event.target.parentElement.id;
-    let gridItem = gridItemsData.find((gridItem) => {
+    let gridItem = gridItems.data.find((gridItem) => {
       return gridItem.id === itemId;
     });
 

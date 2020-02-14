@@ -12,9 +12,7 @@ export class HeaderImgWrapper extends React.Component {
   // If not found, use this.state.headerImgId default value.
   // =============================================================================  
   render() {
-    let headerImgId = getCookie("headerImgId");
-    headerImgId = headerImgId === null ? this.props.headerImgId : headerImgId;
-    let headerImgSrc = `./images/mia-small-${headerImgId}.jpg`;
+    let headerImgSrc = `./images/mia-small-${this.props.headerImgId}.jpg`;
 
     return (
       <HeaderImg headerImgSrc={headerImgSrc}                 
@@ -57,7 +55,7 @@ const mapDispatchToProps = (dispatch) => {
     // ============================================================================= 
     // When a grid image is dragged into header-image, I re-style the header-image 
     // (enlarge it temporarily through a class name) to give the user a cue that the 
-    // dragged image "arrived at the destinaion".
+    // dragged image "arrived at the destinaion"
     // ============================================================================= 
     onDragEnter: (event) => {
       event.preventDefault();

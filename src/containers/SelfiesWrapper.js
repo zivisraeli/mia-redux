@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Selfies } from '../components/Selfies'
-import { gridItemsData } from '../gridItemsData';
+import { gridItems } from '../gridItemsData';
 import { getCookie } from '../Utils.js';
 
 export class SelfiesWrapper extends React.Component {
@@ -28,7 +28,7 @@ export class SelfiesWrapper extends React.Component {
     }
 
     likeArray.forEach((id) => {
-      let gridElem = gridItemsData.find((elem) => {
+      let gridElem = gridItems.data.find((elem) => {
         return elem.id === id;
       });
       if (gridElem != null) {

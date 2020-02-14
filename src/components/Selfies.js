@@ -10,8 +10,8 @@ export const Selfies = (props) => {
       <main id="grid-section">
         <SelfiesHeader />
         <SelfiesSectionWrapper blurEffect={props.blurEffect} 
-                                 gridVisibility={props.gridVisibility}
-                                 isModalOn={props.isModalOn} />
+                               gridVisibility={props.gridVisibility}
+                               isModalOn={props.isModalOn} />
       </main>
       <Footer />        
     </React.Fragment>

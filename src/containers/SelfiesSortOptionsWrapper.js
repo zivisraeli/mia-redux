@@ -8,7 +8,7 @@ import { SelfiesSortOptions } from '../components/SelfiesSortOptions'
 export class SelfiesSortOptionsWrapper extends React.Component {
   render() {
     return (<SelfiesSortOptions sortFilter={this.props.sortFilter} 
-                                            onSortChange={this.props.onSortChange} />);
+                                onSortChange={this.props.onSortChange} />);
   }
 }
 

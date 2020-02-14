@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { gridItemsData } from '../gridItemsData';
-import { gridItemsMap, globalModalImg } from '../Utils';
+import { gridItems } from '../gridItemsData';
+import { globalModalImg } from '../Utils';
 import { MODAL_NEXT_BTN, MODAL_PREV_BTN, MODAL_IMG_LOADED, MODAL_CLOSED } from '../constants';
 import { SelfiesModalImg } from '../components/SelfiesModalImg';
 
@@ -46,8 +46,8 @@ export class SelfiesModalImgWrapper extends React.Component {
   }
 
   render() {
-    let modalImgIndex = gridItemsData.map(function(item) { return item.id; }).indexOf(globalModalImg.id);
-    let gridItem = gridItemsData[modalImgIndex];
+    let modalImgIndex = gridItems.data.map(function(item) { return item.id; }).indexOf(globalModalImg.id);
+    let gridItem = gridItems.data[modalImgIndex];
 
     let arrSrc = gridItem.src.match('(.*mia-).*-(.*)(.jpg$)');
     let theModalImg = {};
