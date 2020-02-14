@@ -20,8 +20,8 @@ import { gridItems } from '../gridItemsData';
 
 // =============================================================================
 // This function takes 2 parameters:
-//   1. attr: what field I wanna sort by (likes, caption, etc)
-//   2. direction: whether it's ascending or descending sort. 
+//   1. attr: what attribute I wanna sort by (likes, caption, etc)
+//   2. direction: what direction the sort is (ascending or descending)
 // Javascript sort function take a "compare" function as a parameter. 
 // =============================================================================
 const sortGridItems = (sortAttr, sortDirection) => {
@@ -98,8 +98,8 @@ const readSortCookie = () => {
 // In that case, use img id 'id02' as a default.
 // =============================================================================
 const readHeaderImgCookie = () => {
-  let headerImgId = getCookie("headerImgId");
-  headerImgId = headerImgId === null ? 'id02' : headerImgId;
+  let headerImgIdCookie = getCookie("headerImgId");
+  let headerImgId = headerImgIdCookie === null ? 'id02' : headerImgIdCookie;
   return headerImgId;
 }
 

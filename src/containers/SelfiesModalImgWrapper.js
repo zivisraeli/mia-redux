@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { gridItems } from '../gridItemsData';
-import { globalModalImg } from '../Utils';
 import { MODAL_NEXT_BTN, MODAL_PREV_BTN, MODAL_IMG_LOADED, MODAL_CLOSED } from '../constants';
 import { SelfiesModalImg } from '../components/SelfiesModalImg';
 
@@ -15,7 +14,7 @@ export class SelfiesModalImgWrapper extends React.Component {
   // However I need to determine the height.
   // - I find the width/height ration of the img and the width/height ratio of the viewport.
   // - if it's wider img, I don't try to set the height.
-  // - otherwise, the height would be equal to the width. 
+  // - otherwise, the height would be equal to the width.
   // =============================================================================
   onLoadEventHandler = (event) => {
     let imgW = event.target.naturalWidth;
@@ -46,7 +45,7 @@ export class SelfiesModalImgWrapper extends React.Component {
   }
 
   render() {
-    let modalImgIndex = gridItems.data.map(function(item) { return item.id; }).indexOf(globalModalImg.id);
+    let modalImgIndex = gridItems.data.map((item) => { return item.id; }).indexOf(this.props.modalImgId);
     let gridItem = gridItems.data[modalImgIndex];
 
     let arrSrc = gridItem.src.match('(.*mia-).*-(.*)(.jpg$)');
@@ -57,31 +56,23 @@ export class SelfiesModalImgWrapper extends React.Component {
     theModalImg.displayStyle = this.props.modalDisplayStyle;
 
     // =============================================================================
-    // For divs:
-    // 1. modal-main-container-div
-    //   - it covers the ENTIRE viewport (w:100%, h:100%). 
-    //   - it contains 3 elements: 2 buttons (prev, next) and a sub-container div in between.
-    //   - its position is *fixed* on left:1, top:1 (relative to the viewport).
-    //   - it's the main container that is visible or none.
-    //   - it carries the value z-index:1 meaning it's in the front of the grid. 
-    //   - the grid was rendered blurred by the SelfiesSection.
-    // 2. modal-sub-container-div
-    //    - its width is 75% of the viewport width (75vw) and it's centered (margin:auto).
-    //    - it contains 2 elements: the close button and the image div. 
-    //    - its position is *relative* & starts below the header (based on the header's height+1)
-    //    - its background color is #fefefe which is slighty different then the grid background. 
-    // 3. modal-main-img-div
-    //    - it covers the entre containng div i.e. 75% of the view port. 
-    //    - it contains 3 elements: the main img div and captions (spans) at the bottom.
-    //    - it has a border and has paddings to "frame" the image.  
-    // 4. modal-img-div
-    //    - contains the img
-    //    - contains the scroll due to overflowY: 'auto'
+    // Two main properties are passed down to SelfiesModalImg through the prev/next callback
+    // functions. When the dispatch methods (listed in mapDispatchToProps)
+    // are invoked, they will be invoked with this 2 parameters. 
+    // - filteredGridItemsData - is passed to this component from SelfiesSectionWrapper where it's created.
+    //   it is necessary in order to determine the next/prev image.
+    // - modalImgId - is passed from the store (mapStateToProps).
+    //   it is necessary in order to to determine its index and therefore the next/prev image index.
+    //
+    // This complexity could be avoided had I decided to put the logic in the reducer. However, 
+    // I would rather have this logic in the related component.
     // =============================================================================
+    let filteredGridItemsData = this.props.filteredGridItemsData;
+    let modalImgId = this.props.modalImgId;
     return (
       <SelfiesModalImg onModalImgLoaded={this.onLoadEventHandler}
-                       onModalPrevBtn={() => this.props.onModalPrevBtn(this.props.filteredGridItemsData)}
-                       onModalNextBtn={() => this.props.onModalNextBtn(this.props.filteredGridItemsData)}
+                       onModalPrevBtn={() => this.props.onModalPrevBtn(filteredGridItemsData, modalImgId)}
+                       onModalNextBtn={() => this.props.onModalNextBtn(filteredGridItemsData, modalImgId)}
                        onModalClosed={this.props.onModalClosed}
                        theModalImg={theModalImg}
                        containerDivMaxWidth={this.containerDivMaxWidth}
@@ -99,26 +90,24 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-     onModalPrevBtn: (filteredGridItemsData) => {
+    onModalPrevBtn: (filteredGridItemsData, modalImgId) => {
       let items = filteredGridItemsData;
-      let itemIndex = items.map(function(item) { return item.id; }).indexOf(globalModalImg.id);      
+      let itemIndex = items.map((item) => { return item.id; }).indexOf(modalImgId);
       itemIndex = itemIndex === 0 ? items.length - 1 : itemIndex - 1;
-      let modalImgId = items[itemIndex].id;
-      globalModalImg.id = modalImgId;
+      modalImgId = items[itemIndex].id;
 
-      return dispatch({ type: MODAL_PREV_BTN, payload:{modalImgId: modalImgId, modalDisplayStyle: 'none'}});
+      return dispatch({ type: MODAL_PREV_BTN, payload: { modalImgId: modalImgId, modalDisplayStyle: 'none' } });
     },
-    onModalNextBtn: (filteredGridItemsData) => {
+    onModalNextBtn: (filteredGridItemsData, modalImgId) => {
       let items = filteredGridItemsData;
-      let itemIndex = items.map(function(item) { return item.id; }).indexOf(globalModalImg.id);
+      let itemIndex = items.map((item) => { return item.id; }).indexOf(modalImgId);
       itemIndex = (itemIndex + 1) === items.length ? 0 : itemIndex + 1;
-      let modalImgId = items[itemIndex].id;
-      globalModalImg.id = modalImgId;
+      modalImgId = items[itemIndex].id;
 
-      return dispatch({ type: MODAL_NEXT_BTN, payload:{modalImgId: modalImgId, modalDisplayStyle: 'none'}});
-    }, 
+      return dispatch({ type: MODAL_NEXT_BTN, payload: { modalImgId: modalImgId, modalDisplayStyle: 'none' } });
+    },
     onModalImgLoaded: () => {
-      return dispatch({ type: MODAL_IMG_LOADED, payload: {modalDisplayStyle: 'block'} });
+      return dispatch({ type: MODAL_IMG_LOADED, payload: { modalDisplayStyle: 'block' } });
     },
     onModalClosed: () => {
       return dispatch({ type: MODAL_CLOSED });

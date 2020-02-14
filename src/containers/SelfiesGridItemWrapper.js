@@ -2,12 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { gridItems } from '../gridItemsData';
-import { getCookie, setCookie, globalModalImg } from '../Utils.js';
+import { getCookie, setCookie } from '../Utils.js';
 import { IMG_CLICK } from '../constants';
 import { SelfiesGridItem } from '../components/SelfiesGridItem';
 import heartOutline from '../images/heart-outline.png';
 import heartFull from '../images/heart-full.png';
-
 
 export class SelfiesGridItemWrapper extends React.Component {
   constructor(props) {
@@ -114,7 +113,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onImgClick: (event) => {      
       let itemId = event.target.parentElement.id;
-      globalModalImg.id = itemId;
       return dispatch({ type: IMG_CLICK, payload: itemId });
     },
     onDragStart: (event) => {

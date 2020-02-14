@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { gridItemsData } from '../gridItemsData';
 import SelfiesGridItemWrapper from '../containers/SelfiesGridItemWrapper';
 import SelfiesModalImgWrapper from '../containers/SelfiesModalImgWrapper';
 

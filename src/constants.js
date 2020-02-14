@@ -1,3 +1,6 @@
+// =============================================================================
+// action constants
+// =============================================================================
 export const SORT_ORDER        = 'SORT-ORDER';
 export const IMG_CLICK         = 'IMG_CLICK';
 export const MODAL_CLOSED      = 'MODAL_CLOSED';

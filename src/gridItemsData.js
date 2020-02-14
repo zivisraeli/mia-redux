@@ -4,6 +4,9 @@ class ItemData {
   }
 }
 
+// =============================================================================
+// GridItemData extends ItemData just for the purpose of exercising inheritance...
+// =============================================================================
 export class GridItemData extends ItemData {
   constructor(id, src, caption, date, likeCount, isLiked) {
     super(id);
