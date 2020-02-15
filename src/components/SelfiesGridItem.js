@@ -6,9 +6,11 @@ export const SelfiesGridItem = (props) => {
       <img src={props.src} 
            className="grid-image"
            alt={props.id}
-           onLoad={props.imgLoadCallbackEventHandler} 
-           onClick={props.onImgClick}
-           onDragStart={props.onDragStart} />
+           onLoad={props.onImgLoad} 
+           onClick={props.onImgClick}           
+           onDragStart={props.onDragStart}
+           onTouchStart={props.onTouchStart}
+           onTouchEnd={props.onTouchEnd} />
     <figcaption className="figcaption">
                  {props.caption}&nbsp;|&nbsp;
       <span id="like-count-span">{props.likeCount}</span>&nbsp;
@@ -20,7 +22,7 @@ export const SelfiesGridItem = (props) => {
     <img src={props.theHeartImg} 
          className={props.theHeartImgClass} 
          alt="heart-like" 
-         onClick={props.heartClickEventHandler} />
+         onClick={props.onHeartClick} />
     </figure>
   );
 }

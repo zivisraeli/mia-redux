@@ -10,14 +10,14 @@ let loadedImgCounter = 0;
 export class SelfiesSectionWrapper extends React.Component {
   constructor(props) {
     super(props);
-    this.imgLoadCallbackEventHandler = this.imgLoadCallbackEventHandler.bind(this);
+    this.onImgLoad = this.onImgLoad.bind(this);
   }
 
   // =============================================================================
   // Invoked by the GridItem component upon image loading.
   // When loadedImgCounter === total number of images the div can become visible. 
   // =============================================================================  
-  imgLoadCallbackEventHandler() {
+  onImgLoad() {
     loadedImgCounter++;
     if (loadedImgCounter === gridItems.data.length) {
       loadedImgCounter = 0;
@@ -46,7 +46,7 @@ export class SelfiesSectionWrapper extends React.Component {
                       blurEffect={this.props.blurEffect} 
                       gridVisibility = { this.props.gridVisibility }                      
                       isModalOn={this.props.isModalOn}
-                      imgLoadCallbackEventHandler={this.imgLoadCallbackEventHandler} />
+                      onImgLoad={this.onImgLoad} />
     );
   }
 }
@@ -61,7 +61,9 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     onAllImgsLoaded: () => {
-      return dispatch({ type: ALL_IMGS_LOADED });
+      return dispatch({
+        type: ALL_IMGS_LOADED
+      });
     }
   }
 }

@@ -96,7 +96,13 @@ const mapDispatchToProps = (dispatch) => {
       itemIndex = itemIndex === 0 ? items.length - 1 : itemIndex - 1;
       modalImgId = items[itemIndex].id;
 
-      return dispatch({ type: MODAL_PREV_BTN, payload: { modalImgId: modalImgId, modalDisplayStyle: 'none' } });
+      return dispatch({
+        type: MODAL_PREV_BTN,
+        payload: {
+          modalImgId: modalImgId,
+          modalDisplayStyle: 'none'
+        }
+      });
     },
     onModalNextBtn: (filteredGridItemsData, modalImgId) => {
       let items = filteredGridItemsData;
@@ -104,13 +110,24 @@ const mapDispatchToProps = (dispatch) => {
       itemIndex = (itemIndex + 1) === items.length ? 0 : itemIndex + 1;
       modalImgId = items[itemIndex].id;
 
-      return dispatch({ type: MODAL_NEXT_BTN, payload: { modalImgId: modalImgId, modalDisplayStyle: 'none' } });
+      return dispatch({
+        type: MODAL_NEXT_BTN,
+        payload: {
+          modalImgId: modalImgId,
+          modalDisplayStyle: 'none'
+        }
+      });
     },
     onModalImgLoaded: () => {
-      return dispatch({ type: MODAL_IMG_LOADED, payload: { modalDisplayStyle: 'block' } });
+      return dispatch({
+        type: MODAL_IMG_LOADED,
+        payload: { modalDisplayStyle: 'block' }
+      });
     },
     onModalClosed: () => {
-      return dispatch({ type: MODAL_CLOSED });
+      return dispatch({
+        type: MODAL_CLOSED
+      });
     },
   }
 }

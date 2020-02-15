@@ -24,7 +24,9 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     onDogBreedToggled: () => {
-      return dispatch({ type: DOG_BREED_TOGGLED });
+      return dispatch({ 
+        type: DOG_BREED_TOGGLED 
+      });
     }
   }
 }

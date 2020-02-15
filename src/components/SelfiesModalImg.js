@@ -24,7 +24,7 @@ export const SelfiesModalImg = (props) => {
   // 4. modal-img-div
   //    - contains the img
   //    - contains the scroll due to overflowY: 'auto'
-  // =============================================================================
+  // ============================================================================= 
   return (
     <div id="modal-main-container-div" style={{display: props.theModalImg.displayStyle}}>
       <div id="modal-sub-container-div" style={{maxWidth: props.containerDivMaxWidth}}>

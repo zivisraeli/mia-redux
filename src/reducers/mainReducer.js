@@ -11,7 +11,8 @@ import {
   IMG_DRAG_ENTER,
   IMG_DRAG_LEAVE,
   IMG_DRAG_DROP,
-  FILTER_CHANGED
+  FILTER_CHANGED,
+  IMG_TOUCH_END
 
 } from '../constants.js';
 import { getCookie } from '../Utils.js';
@@ -167,7 +168,6 @@ export const mainReducer = (state = initialState, action) => {
         modalDisplayStyle: payload.modalDisplayStyle
       });
 
-
     case MODAL_IMG_LOADED:
       return Object.assign({}, state, {
         modalDisplayStyle: payload.modalDisplayStyle,
@@ -189,9 +189,10 @@ export const mainReducer = (state = initialState, action) => {
         headerImgClassName: payload,
       });
 
+    case IMG_TOUCH_END:
     case IMG_DRAG_DROP:
       return Object.assign({}, state, {
-        headerImgId: payload.draggedImgId,
+        headerImgId: payload.imgId,
         headerImgClassName: payload.headerImgClassName
       });
 

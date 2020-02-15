@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { gridItems } from '../gridItemsData';
 import { getCookie, setCookie } from '../Utils.js';
-import { IMG_CLICK } from '../constants';
+import { IMG_CLICK, IMG_TOUCH_END } from '../constants';
 import { SelfiesGridItem } from '../components/SelfiesGridItem';
 import heartOutline from '../images/heart-outline.png';
 import heartFull from '../images/heart-full.png';
@@ -33,7 +33,7 @@ export class SelfiesGridItemWrapper extends React.Component {
   //     the proper icon and count number. 
   //   - update the likes cookie.
   // =============================================================================
-  heartClickEventHandler = (event) => {
+  onHeartClick = (event) => {
     let itemId = event.target.parentElement.id;
     let gridItem = gridItems.data.find((gridItem) => {
       return gridItem.id === itemId;
@@ -80,6 +80,24 @@ export class SelfiesGridItemWrapper extends React.Component {
     }
   }
 
+  // =============================================================================
+  // when the drag starts I don't need to dispatch any action. I just add the draggedImgId
+  // to the event. this infomation stays with the event and can be retrieved later-on
+  // upon onDragDrop (in HeaderImgWrapper).
+  // =============================================================================
+  onDragStart = (event) => {
+    let draggedImgId = event.target.alt;
+    event.dataTransfer.setData('draggedImgId', draggedImgId);
+  }
+
+  onTouchStart = (event) => {
+    console.log(event.changedTouches[0]);
+    let theTouch = event.changedTouches[0];
+    let xDown = theTouch.clientX;
+    let yDown = theTouch.clientY;
+    event.dataTransfer = { start_xDown: xDown, start_yDown: yDown }
+  }
+
   render() {
     let theHeartImg = heartOutline;
     let theHeartImgClass = 'heart';
@@ -95,10 +113,12 @@ export class SelfiesGridItemWrapper extends React.Component {
                        date={this.props.date}
                        isLiked={this.state.isLiked}
                        likeCount={this.state.likeCount}
-                       imgLoadCallbackEventHandler={this.props.imgLoadCallbackEventHandler}
-                       heartClickEventHandler={this.heartClickEventHandler} 
+                       onImgLoad={this.props.onImgLoad}
+                       onHeartClick={this.onHeartClick} 
                        onImgClick={this.props.onImgClick}
-                       onDragStart={this.props.onDragStart}
+                       onDragStart={this.onDragStart}
+                       onTouchStart={this.onTouchStart}                      
+                       onTouchEnd={(event) => this.props.onTouchEnd(event, this.onHeartClick)}
                        theHeartImg={theHeartImg}
                        theHeartImgClass={theHeartImgClass}
                        key={this.props.id}/>);
@@ -111,13 +131,37 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onImgClick: (event) => {      
+    onImgClick: (event) => {
       let itemId = event.target.parentElement.id;
-      return dispatch({ type: IMG_CLICK, payload: itemId });
+      return dispatch({ 
+        type: IMG_CLICK, 
+        payload: itemId 
+      });
     },
-    onDragStart: (event) => {
-      let draggedImgId = event.target.alt;
-      event.dataTransfer.setData('draggedImgId', draggedImgId);
+    onTouchEnd: (event, onHeartClick) => {
+      console.log(event.dataTransfer);
+      let theTouch = event.changedTouches[0];
+      let endX = theTouch.clientX;
+      let endY = theTouch.clientY;
+      let startX = event.dataTransfer.start_xDown;
+      let startY = event.dataTransfer.start_yDown;
+      let diffX = Math.abs(startX - endX);
+      let diffY = Math.abs(startY - endY);
+      if ((diffX > 25) && (diffY < 25)) {
+        if (endX > startX) {
+          onHeartClick(theTouch);
+        } else {
+          let touchedImgId = theTouch.target.parentElement.id;
+          setCookie("headerImgId", touchedImgId);
+          return dispatch({
+            type: IMG_TOUCH_END,
+            payload: {
+              imgId: touchedImgId,
+              headerImgClassName: 'header-img'
+            }
+          });
+        }
+      }
     }
   }
 }

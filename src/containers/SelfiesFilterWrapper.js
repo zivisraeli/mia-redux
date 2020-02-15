@@ -21,7 +21,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onFilterChange: (event) => {
-      return dispatch({ type: FILTER_CHANGED, payload: event.target.value.toLowerCase() });
+      return dispatch({ 
+        type: FILTER_CHANGED, 
+        payload: event.target.value.toLowerCase() 
+      });
     }
   }
 }

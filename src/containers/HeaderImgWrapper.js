@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { HEADER_IMG_LOADED, IMG_DRAG_ENTER, IMG_DRAG_LEAVE, IMG_DRAG_DROP } from '../constants';
 
-import { getCookie, setCookie } from '../Utils.js';
+import { setCookie } from '../Utils.js';
 import { HeaderImg } from '../components/HeaderImg';
 
 export class HeaderImgWrapper extends React.Component {
@@ -59,7 +59,10 @@ const mapDispatchToProps = (dispatch) => {
     // ============================================================================= 
     onDragEnter: (event) => {
       event.preventDefault();
-      return dispatch({ type: IMG_DRAG_ENTER, payload: 'header-img img-hovered' });
+      return dispatch({ 
+        type: IMG_DRAG_ENTER, 
+        payload: 'header-img img-hovered' 
+      });
     },
     // ============================================================================= 
     // If the image is dragged outside the div BUT into the image (the image is inside the div)
@@ -68,7 +71,10 @@ const mapDispatchToProps = (dispatch) => {
     onDragLeave: (event) => {
       let relatedTargetId = event.relatedTarget.id;
       if (relatedTargetId !== 'header-img' && relatedTargetId !== 'dragged-into-div') {
-        return dispatch({ type: IMG_DRAG_LEAVE, payload: 'header-img' });
+        return dispatch({ 
+          type: IMG_DRAG_LEAVE, 
+          payload: 'header-img' 
+        });
       }
     },
     // ============================================================================= 
@@ -78,8 +84,13 @@ const mapDispatchToProps = (dispatch) => {
     onDragDrop: (event) => {
       let draggedImgId = event.dataTransfer.getData('draggedImgId');
       setCookie("headerImgId", draggedImgId);
-      return dispatch({ type: IMG_DRAG_DROP, payload: {draggedImgId: draggedImgId,
-                                                       headerImgClassName: 'header-img' }});
+      return dispatch({
+        type: IMG_DRAG_DROP,
+        payload: {
+          imgId: draggedImgId,
+          headerImgClassName: 'header-img'
+        }
+      });
     },
   }
 }

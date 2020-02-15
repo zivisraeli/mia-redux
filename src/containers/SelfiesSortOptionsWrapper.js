@@ -24,7 +24,10 @@ const mapDispatchToProps = (dispatch) => {
       let selectedIndex = event.target.selectedIndex;
       let selectedOptionId = event.target[selectedIndex].id;
       setCookie('sort', selectedOptionId);
-      return dispatch({ type: SORT_ORDER, payload: selectedOptionId });
+      return dispatch({
+        type: SORT_ORDER,
+        payload: selectedOptionId
+      });
     }
   }
 }
