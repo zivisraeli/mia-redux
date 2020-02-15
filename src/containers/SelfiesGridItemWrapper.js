@@ -23,13 +23,15 @@ export class SelfiesGridItemWrapper extends React.Component {
   }
 
   // =============================================================================
-  // The heart image doesn't carry an id, but its parent does.
-  // The id is used to find the actual grid-item element from the list.
-  // Once the grid-item element if found, we can manipulate its data in toggleLikeCount()
-  // The method would:
-  //   - toggle the isLiked value.
+  // - the method is invoked upon:
+  //   1. heart icon is clicked (click event on desktop)
+  //   2. user swaped to the right (touch event on mobile)
+  // - The heart image doesn't carry an id, but its parent does.
+  // - The id is used to find the actual grid-item element from the list.
+  // - Once the grid-item element is found, I manipulates the like values:
+  //   * toggle the isLiked value.
   //   - increment/decrement the likeCount.
-  //   - set the states. during rendering the state values r used to determine 
+  //   - set the states values which during rendering r used to determine 
   //     the proper icon and count number. 
   //   - update the likes cookie.
   // =============================================================================
@@ -90,6 +92,11 @@ export class SelfiesGridItemWrapper extends React.Component {
     event.dataTransfer.setData('draggedImgId', draggedImgId);
   }
 
+  // =============================================================================
+  // here i'm using a trick used the drag events. i'm adding data to event 
+  // (initial x,y values) through a made-up property - dataTransfer.
+  // this data will be later retrieved upon touchEnd event. 
+  // =============================================================================
   onTouchStart = (event) => {
     console.log(event.changedTouches[0]);
     let theTouch = event.changedTouches[0];
@@ -106,6 +113,19 @@ export class SelfiesGridItemWrapper extends React.Component {
       theHeartImgClass = 'heart animatedHeartBeat';
     }
 
+    // =============================================================================
+    // - there are 3 types of events here:
+    //   1. those that can be processed locally such as onDragStart(), onTouchStart(), etc
+    //   2. those that need to dispatch an action to notify other components such as onImgClick().
+    //   3. those that need both local and dispatch handling such as onTouchEnd().
+    // onTouchEnd - when a touch event happens it means either:
+    //   - like-count need to change if swipe to the right. in which case it can be handled 
+    //     locally by onHeartClick()
+    //   - header-img need to change if swipe to the left. in which case an action needs to 
+    //     be dispatched since it's handled by other components.
+    //  for the local handling case there is a bit of an issue. since onTouchEnd can't simply
+    //  call onHeartClick(). I therefore pass it through the onTouchEnd property.
+    // =============================================================================
     return (
       <SelfiesGridItem id={this.props.id} 
                        src={this.props.src}
@@ -133,13 +153,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onImgClick: (event) => {
       let itemId = event.target.parentElement.id;
-      return dispatch({ 
-        type: IMG_CLICK, 
-        payload: itemId 
+      return dispatch({
+        type: IMG_CLICK,
+        payload: itemId
       });
     },
     onTouchEnd: (event, onHeartClick) => {
-      console.log(event.dataTransfer);
       let theTouch = event.changedTouches[0];
       let endX = theTouch.clientX;
       let endY = theTouch.clientY;

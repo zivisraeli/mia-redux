@@ -9,7 +9,7 @@ export class HeaderImgWrapper extends React.Component {
 
   // =============================================================================
   // The header's image is determined by the headerImgId cookie.
-  // If not found, use this.state.headerImgId default value.
+  // It is read in the reducer during initialization.
   // =============================================================================  
   render() {
     let headerImgSrc = `./images/mia-small-${this.props.headerImgId}.jpg`;
@@ -30,8 +30,8 @@ export class HeaderImgWrapper extends React.Component {
 const mapStateToProps = (state) => {
   return {
     headerImgBorderStyle: state.headerImgBorderStyle,
-    headerImgId: state.headerImgId,
     headerImgClassName: state.headerImgClassName,
+    headerImgId: state.headerImgId,
   }
 }
 
@@ -59,9 +59,9 @@ const mapDispatchToProps = (dispatch) => {
     // ============================================================================= 
     onDragEnter: (event) => {
       event.preventDefault();
-      return dispatch({ 
-        type: IMG_DRAG_ENTER, 
-        payload: 'header-img img-hovered' 
+      return dispatch({
+        type: IMG_DRAG_ENTER,
+        payload: 'header-img img-hovered'
       });
     },
     // ============================================================================= 
@@ -71,9 +71,9 @@ const mapDispatchToProps = (dispatch) => {
     onDragLeave: (event) => {
       let relatedTargetId = event.relatedTarget.id;
       if (relatedTargetId !== 'header-img' && relatedTargetId !== 'dragged-into-div') {
-        return dispatch({ 
-          type: IMG_DRAG_LEAVE, 
-          payload: 'header-img' 
+        return dispatch({
+          type: IMG_DRAG_LEAVE,
+          payload: 'header-img'
         });
       }
     },
