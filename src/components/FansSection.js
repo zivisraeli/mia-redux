@@ -1,18 +1,24 @@
 import React from 'react';
 
 export const FansSection = (props) => {
-	// =============================================================================
-	// - The default cheched value in react is, well defaultChecked...
-	// - The 'for' attribute should be named 'htmlFor' in Reac.
-	// - Since dogOwnerEventHandler is a callback function and the 'this' element is referenced, 
-	//   it must be declared as an arrow-function rather then regular/expression-function 
-	//   (in which case, binding would be necessary).
-	// =============================================================================
-	let dogBreedClass = props.dogBreedEnabled ? 'dog-breed-enabled' : 'dog-breed-disabled';
-	let disabled = props.dogBreedEnabled ? '' : 'disabled';
+  // =============================================================================
+  // - the 'for' attribute should be named 'htmlFor' in React.
+  // - the onDogBreedToggled state is maintained throughout the session.
+  //   as so, it should determine the 'checked' radio button of the dog-owner input.
+  // =============================================================================
+  let checkedYes = '';
+  let checkedNo = 'checked';
+  let dogBreedLabelClass = 'dog-breed-disabled';
+  let dogBreedInputDisabled = 'disabled';
+  if (props.dogBreedEnabled) {
+    checkedYes = 'checked';
+    checkedNo = '';
+    dogBreedLabelClass = 'dog-breed-enabled';
+    dogBreedInputDisabled = '';
+  }
 
-	return (
-	  <section className="middle-section">
+  return (
+    <section className="middle-section">
 	    <form action="" method="get">
 	      <div>
 	        <label htmlFor="name-input"><span className="required">*</span>Name:</label>
@@ -32,13 +38,13 @@ export const FansSection = (props) => {
 	      <div>
 	        <label htmlFor="radio-btns-div">Dog Owner:</label>
 	        <div id="radio-btns-div">
-	          <input type="radio" name="dog-owner" value="Yes" onClick={props.onDogBreedToggled} />Yes
-	          <input type="radio" name="dog-owner" value="No" onClick={props.onDogBreedToggled} defaultChecked />No
+	          <input type="radio" name="dog-owner" value="Yes" onClick={props.onDogBreedToggled} checked={checkedYes} />Yes
+	          <input type="radio" name="dog-owner" value="No" onClick={props.onDogBreedToggled}  checked={checkedNo} />No
 	        </div>
 	      </div>
 	      <div>
-	        <label id="dog-breed-label" className={dogBreedClass}>Dog Breed:</label>
-	        <input type="text" id="dog-breed-input" disabled={disabled} required />
+	        <label id="dog-breed-label" className={dogBreedLabelClass}>Dog Breed:</label>
+	        <input type="text" id="dog-breed-input" disabled={dogBreedInputDisabled} required />
 	      </div>
 	      <div>
 	        <label htmlFor="tel-input">Comment:</label>
@@ -49,5 +55,5 @@ export const FansSection = (props) => {
 	      </div>
 	    </form>
 	  </section>
-	);
+  );
 }
