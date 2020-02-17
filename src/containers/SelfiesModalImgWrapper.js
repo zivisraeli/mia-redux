@@ -22,13 +22,18 @@ export class SelfiesModalImgWrapper extends React.Component {
     let imgW2h = imgW / imgH;
 
     let vpW = document.documentElement.clientWidth;
+    console.log(vpW);
     let vpH = document.documentElement.clientHeight - 149;
     if (imgW < (document.documentElement.clientWidth * 0.65)) {
       this.containerDivMaxWidth = '50vw';
       vpW = vpW * 0.5;
     } else {
-      this.containerDivMaxWidth = '75vw';
-      vpW = vpW * 0.75;
+      if (vpW < 700) {
+        this.containerDivMaxWidth = '100vw';
+      } else {
+        this.containerDivMaxWidth = '75vw';
+        vpW = vpW * 0.75;
+      }
     }
 
     let vpW2h = vpW / vpH;
