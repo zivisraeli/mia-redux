@@ -14,8 +14,12 @@ export class SelfiesSectionWrapper extends React.Component {
   }
 
   // =============================================================================
-  // Invoked by the GridItem component upon image loading.
-  // When loadedImgCounter === total number of images the div can become visible. 
+  // - Invoked by the GridItem component upon image loading.
+  // - When loadedImgCounter === total number of images the div can become visible. 
+  // - During the lengthy grid-images load time I display a spinner.
+  // - When all the images are loaded I dispatch ALL_IMGS_LOADED action that would turn
+  //   the grid from invisible to visible (the spinner gets hidden here.)
+  // - With pure Javascript I could simply use windows.onLoad. It doesn't work with React.
   // =============================================================================  
   onImgLoad() {
     loadedImgCounter++;

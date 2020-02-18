@@ -82,6 +82,7 @@ const mapDispatchToProps = (dispatch) => {
     // then it's still considered inside the div and therefore don't dispatch a new event.
     // ============================================================================= 
     onDragDrop: (event) => {
+      event.preventDefault();
       let draggedImgId = event.dataTransfer.getData('draggedImgId');
       setCookie("headerImgId", draggedImgId);
       return dispatch({
