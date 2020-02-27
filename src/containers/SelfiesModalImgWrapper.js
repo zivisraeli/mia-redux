@@ -6,8 +6,32 @@ import { MODAL_NEXT_BTN, MODAL_PREV_BTN, MODAL_IMG_LOADED, MODAL_CLOSED } from '
 import { SelfiesModalImg } from '../components/SelfiesModalImg';
 
 export class SelfiesModalImgWrapper extends React.Component {
-  modalImgHeight;
-  containerDivMaxWidth;
+  modalImgHeight = null;
+  containerDivMaxWidth = null;
+
+  // =============================================================================
+  // Navigating left & right through the modal images can be done:
+  //   * through the left & right btn-images
+  //   * through the left & right keyboard's keys. 
+  // For the btn-images I'm passing onModalPrevBtn & onModalNextBtn properties.
+  // For the keyboard's key I'm listening to keydown events. 
+  // =============================================================================
+  onKeyDown = (event) => {
+    let filteredGridItemsData = this.props.filteredGridItemsData;
+    let modalImgId = this.props.modalImgId;
+    if (event.key === "ArrowRight")
+      this.props.onModalNextBtn(filteredGridItemsData, modalImgId);
+    else if (event.key === "ArrowLeft")
+      this.props.onModalPrevBtn(filteredGridItemsData, modalImgId);
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.onKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.onKeyDown);
+  }
 
   // =============================================================================
   // The img width is always 75% of the viewport.
@@ -16,13 +40,12 @@ export class SelfiesModalImgWrapper extends React.Component {
   // - if it's wider img, I don't try to set the height.
   // - otherwise, the height would be equal to the width.
   // =============================================================================
-  onLoadEventHandler = (event) => {
+  onModalImgLoadedEventHandler = (event) => {
     let imgW = event.target.naturalWidth;
     let imgH = event.target.naturalHeight;
     let imgW2h = imgW / imgH;
 
     let vpW = document.documentElement.clientWidth;
-    console.log(vpW);
     let vpH = document.documentElement.clientHeight - 149;
     if (imgW < (document.documentElement.clientWidth * 0.65)) {
       this.containerDivMaxWidth = '50vw';
@@ -46,6 +69,7 @@ export class SelfiesModalImgWrapper extends React.Component {
       this.modalImgHeight = vpH;
     }
 
+    // This callback will render the image visible ('block')
     this.props.onModalImgLoaded();
   }
 
@@ -75,7 +99,7 @@ export class SelfiesModalImgWrapper extends React.Component {
     let filteredGridItemsData = this.props.filteredGridItemsData;
     let modalImgId = this.props.modalImgId;
     return (
-      <SelfiesModalImg onModalImgLoaded={this.onLoadEventHandler}
+      <SelfiesModalImg onModalImgLoaded={this.onModalImgLoadedEventHandler}
                        onModalPrevBtn={() => this.props.onModalPrevBtn(filteredGridItemsData, modalImgId)}
                        onModalNextBtn={() => this.props.onModalNextBtn(filteredGridItemsData, modalImgId)}
                        onModalClosed={this.props.onModalClosed}

@@ -3,6 +3,12 @@ import { connect } from 'react-redux';
 
 import { FILTER_CHANGED } from '../constants';
 
+// =============================================================================
+// - Upon having a new filter we need to render the entire SelfiesSection therefore
+//   SelfiesSectionWrapper listens to changes of the filterString state.
+// - When we dispatch FILTER_CHANGED action, the reducer will update the filterString value.
+// - As a result SelfiesSectionWrapper will be rendered.
+// =============================================================================
 export class SelfiesFilterWrapper extends React.Component {
   searchChangeHandler = (event) => {
     console.log(event.target.value.toLowerCase())

@@ -20,7 +20,7 @@ export class SelfiesSectionWrapper extends React.Component {
   // - When all the images are loaded I dispatch ALL_IMGS_LOADED action that would turn
   //   the grid from invisible to visible (the spinner gets hidden here.)
   // - With pure Javascript I could simply use windows.onLoad. It doesn't work with React.
-  // =============================================================================  
+  // ============================================================================  
   onImgLoad() {
     loadedImgCounter++;
     if (loadedImgCounter === gridItems.data.length) {
@@ -31,10 +31,8 @@ export class SelfiesSectionWrapper extends React.Component {
 
   // =============================================================================  
   // A few properties here are conditional:
-  // - The section "blurring" effect is conditional based on the state.modalImgId value. 
-  // - In addition to the grid I'll also render the modal componet ONLY if hte modalImgId is not ''
-  //   This will happen if the image is clicked on in the GridItem component in which case
-  //   the imgClickCallbackEventHandler() is invoked that changes the state.modalImgId value.
+  // The gridVisibility is initially 'hidden' then 'visible' (see explanation above). 
+  // That will happen only upon page load. When filter is applied the grid stays 'visible'
   // =============================================================================  
   render() {
     let filteredGridItemsData = gridItems.data.filter((gridItem) => {

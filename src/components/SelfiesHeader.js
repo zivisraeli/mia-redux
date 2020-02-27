@@ -3,6 +3,10 @@ import React from 'react';
 import SelfiesSortOptionsWrapper from '../containers/SelfiesSortOptionsWrapper';
 import SelfiesFilterWrapper from '../containers/SelfiesFilterWrapper';
 
+// =============================================================================  
+// The 'swipe' instructions will be invisible on a desktop but visible on a mobile device.
+// The 'click' and 'drag' instruction will be the other way around.
+// =============================================================================  
 export const SelfiesHeader = (props) => {
   return (
     <section>
