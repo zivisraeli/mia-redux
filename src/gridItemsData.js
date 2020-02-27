@@ -61,5 +61,7 @@ gridItems.data = [
   new GridItemData("id34", "./images/mia-small-id34.jpg", "Napping IV", "11/11/2019", 9, false),
   new GridItemData("id35", "./images/mia-small-id35.jpg", "Playing I", "01/09/2020", 12, false),
   new GridItemData("id36", "./images/mia-small-id36.jpg", "Playing II", "01/09/2020", 21, false),
-  new GridItemData("id37", "./images/mia-small-id37.jpg", "Playing III", "01/09/2020", 9, false)
+  new GridItemData("id37", "./images/mia-small-id37.jpg", "Playing III", "01/09/2020", 9, false),
+  new GridItemData("id38", "./images/mia-small-id38.jpg", "Basking In The Sun I", "02/01/2020", 12, false),
+  new GridItemData("id39", "./images/mia-small-id39.jpg", "Basking In The Sun II", "01/29/2020", 19, false)
 ];
