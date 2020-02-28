@@ -26,8 +26,7 @@ export const SelfiesSection = (props) => {
                                               caption={gridItemData.caption}
                                               isLiked={gridItemData.isLiked}
                                               likeCount={gridItemData.likeCount}
-                                              date={gridItemData.date} 
-                                              onImgLoad={props.onImgLoad}
+                                              date={gridItemData.date}                                           
                                               key={gridItemData.id} />);
             })}
           </div>

@@ -5,8 +5,7 @@ export const SelfiesGridItem = (props) => {
     <figure id={props.id} className="grid-item">
       <img src={props.src} 
            className="grid-image"
-           alt={props.id}
-           onLoad={props.onImgLoad} 
+           alt={props.id} 
            onClick={props.onImgClick}           
            onDragStart={props.onDragStart}
            onTouchStart={props.onTouchStart}

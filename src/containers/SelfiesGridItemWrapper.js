@@ -132,8 +132,7 @@ export class SelfiesGridItemWrapper extends React.Component {
                        caption={this.props.caption}
                        date={this.props.date}
                        isLiked={this.state.isLiked}
-                       likeCount={this.state.likeCount}
-                       onImgLoad={this.props.onImgLoad}
+                       likeCount={this.state.likeCount}                    
                        onHeartClick={this.onHeartClick} 
                        onImgClick={this.props.onImgClick}
                        onDragStart={this.onDragStart}
