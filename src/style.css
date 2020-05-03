@@ -326,7 +326,7 @@ the grid
   font-family: calibri;
 }
 
-#grid-section > #title {
+#grid-section>#title {
   font-size: 2vw;
 }
 
@@ -513,7 +513,7 @@ the modal
 }
 
 /* Modal image should be the width of the containing div */
-#modal-img-div > img {
+#modal-img-div>img {
   width: 100%;
 }
 
@@ -612,8 +612,13 @@ footer img {
 /* =============================================================================
 fan form
 ============================================================================= */
-#form-header {
+#fan-section {
+  margin-left: 10%;
+  margin-right: 10%;
   font-family: calibri;
+}
+
+#form-header {
   margin-bottom: 10px;
 }
 
@@ -625,7 +630,6 @@ form {
   border: 1px solid #cccccc;
   border-radius: 1em;
   background-color: #f8f8f8;
-  font-family: calibri;
 }
 
 /* place some top margin for all div's except the 1st one */
@@ -673,7 +677,7 @@ input[type=email],
 input[type=tel],
 textarea {
   font: 1em calibri;
-  width: 300px;
+  width: 75%;
   padding-left: 5px;
   box-sizing: border-box;
   border: 1px solid #acacac;
@@ -811,6 +815,11 @@ media queries
     right: 0;
   }
 
+  #fan-section {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
   /* the two footer spans are split veritically */
   footer {
     height: calc(var(--footer-height) + 10px);
@@ -840,7 +849,7 @@ media queries
   header nav a {
     font-size: calc(15px + 1.0vw);
     padding-left: 5px;
-    padding-right:  5px;
+    padding-right: 5px;
   }
 
   /* removing all special hovering styles for small devices */
@@ -860,17 +869,20 @@ media queries
     display: block;
   }
 
-  #form-header {
-    width: 90vw;
-  }
-
   ul.customed-ul {
     padding: 10px;
   }
 
   form {
-    width: 90vw;
+    width: 80vw;
     padding: 30px 10px;
+  }
+
+  input[type=text],
+  input[type=email],
+  input[type=tel],
+  textarea {
+    width: 95%;
   }
 
   form div {

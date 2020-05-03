@@ -7,7 +7,7 @@ import FansSectionWrapper from '../containers/FansSectionWrapper';
 export const Fans = (props) => {
   return (
     <React.Fragment>
-      <main>
+      <main id="fan-section">
         <FansHeader />
         <FansSectionWrapper />
       </main>
