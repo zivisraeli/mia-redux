@@ -21,5 +21,5 @@ export const SelfiesSortOptions = (props) => {
               <option id="captions+1">{optMap['captions+1']}</option>
               <option id="captions-1">{optMap['captions-1']}</option>
             </select>
-           </div>);
+          </div>);
 }

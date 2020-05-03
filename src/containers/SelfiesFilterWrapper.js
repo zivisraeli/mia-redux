@@ -15,7 +15,7 @@ export class SelfiesFilterWrapper extends React.Component {
   }
 
   render() {
-    return ( <input type="text"
+    return ( <input id="filter-input" type="text"
                     onChange={this.props.onFilterChange} />);
   }
 }
