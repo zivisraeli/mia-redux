@@ -12,7 +12,9 @@ import {
   IMG_DRAG_LEAVE,
   IMG_DRAG_DROP,
   FILTER_CHANGED,
-  IMG_TOUCH_END
+  IMG_TOUCH_END,
+  FORM_CONFIRMED,
+  FORM_MODAL_EDIT
 
 } from '../constants.js';
 import { getCookie } from '../Utils.js';
@@ -201,6 +203,12 @@ export const mainReducer = (state = initialState, action) => {
         filterString: payload,
       });
 
+    case FORM_CONFIRMED:
+    case FORM_MODAL_EDIT:
+      return Object.assign({}, state, {
+        formModalDisplayStyle: payload.formModalDisplayStyle,
+      });
+      
     default:
       return state;
   }

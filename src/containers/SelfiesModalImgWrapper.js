@@ -2,7 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { gridItems } from '../gridItemsData';
-import { MODAL_NEXT_BTN, MODAL_PREV_BTN, MODAL_IMG_LOADED, MODAL_CLOSED } from '../constants';
+import {
+  MODAL_NEXT_BTN,
+  MODAL_PREV_BTN,
+  MODAL_IMG_LOADED,
+  MODAL_CLOSED
+} from '../constants';
 import { SelfiesModalImg } from '../components/SelfiesModalImg';
 
 export class SelfiesModalImgWrapper extends React.Component {

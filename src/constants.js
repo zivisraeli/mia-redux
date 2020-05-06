@@ -16,3 +16,5 @@ export const IMG_DRAG_LEAVE    = 'IMG_DRAG_LEAVE';
 export const IMG_DRAG_DROP     = 'IMG_DRAG_DROP';
 export const FILTER_CHANGED    = 'FILTER_CHANGED';
 export const IMG_TOUCH_END     = 'IMG_TOUCH_END';
+export const FORM_CONFIRMED    = 'FORM_CONFIRMED';
+export const FORM_MODAL_EDIT   = 'FORM_MODAL_EDIT';

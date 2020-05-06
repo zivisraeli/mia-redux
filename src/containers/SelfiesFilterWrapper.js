@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { SelfiesFilter } from '../components/SelfiesFilter';
 
 import { FILTER_CHANGED } from '../constants';
 
@@ -15,8 +16,7 @@ export class SelfiesFilterWrapper extends React.Component {
   }
 
   render() {
-    return ( <input id="filter-input" type="text"
-                    onChange={this.props.onFilterChange} />);
+    return ( <SelfiesFilter onFilterChange={this.props.onFilterChange} /> );
   }
 }
 
