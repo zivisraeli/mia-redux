@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/mia-redux/static/css/main.02f930b2.chunk.css",
-    "main.js": "/mia-redux/static/js/main.6c48c0a5.chunk.js",
-    "main.js.map": "/mia-redux/static/js/main.6c48c0a5.chunk.js.map",
+    "main.css": "/mia-redux/static/css/main.b36ad6ba.chunk.css",
+    "main.js": "/mia-redux/static/js/main.df223d0d.chunk.js",
+    "main.js.map": "/mia-redux/static/js/main.df223d0d.chunk.js.map",
     "runtime-main.js": "/mia-redux/static/js/runtime-main.71454fc4.js",
     "runtime-main.js.map": "/mia-redux/static/js/runtime-main.71454fc4.js.map",
     "static/js/2.b5813cd0.chunk.js": "/mia-redux/static/js/2.b5813cd0.chunk.js",
     "static/js/2.b5813cd0.chunk.js.map": "/mia-redux/static/js/2.b5813cd0.chunk.js.map",
     "index.html": "/mia-redux/index.html",
-    "precache-manifest.545be3913585e3bc35520d9c2ca57b8a.js": "/mia-redux/precache-manifest.545be3913585e3bc35520d9c2ca57b8a.js",
+    "precache-manifest.ea4509c6b54c58c5a41afd97bd426856.js": "/mia-redux/precache-manifest.ea4509c6b54c58c5a41afd97bd426856.js",
     "service-worker.js": "/mia-redux/service-worker.js",
-    "static/css/main.02f930b2.chunk.css.map": "/mia-redux/static/css/main.02f930b2.chunk.css.map",
+    "static/css/main.b36ad6ba.chunk.css.map": "/mia-redux/static/css/main.b36ad6ba.chunk.css.map",
     "static/js/2.b5813cd0.chunk.js.LICENSE": "/mia-redux/static/js/2.b5813cd0.chunk.js.LICENSE",
     "static/media/footer-paw.png": "/mia-redux/static/media/footer-paw.26f2d9a5.png",
     "static/media/heart-full.png": "/mia-redux/static/media/heart-full.0fe46424.png",
@@ -22,7 +22,7 @@
   "entrypoints": [
     "static/js/runtime-main.71454fc4.js",
     "static/js/2.b5813cd0.chunk.js",
-    "static/css/main.02f930b2.chunk.css",
-    "static/js/main.6c48c0a5.chunk.js"
+    "static/css/main.b36ad6ba.chunk.css",
+    "static/js/main.df223d0d.chunk.js"
   ]
 }

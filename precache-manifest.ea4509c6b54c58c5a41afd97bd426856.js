@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "59cc85231bf020e0a3c62937cb70adcb",
+    "revision": "888c2366cc18fc67f4e72f52cc75740a",
     "url": "/mia-redux/index.html"
   },
   {
-    "revision": "4e1ad259acfd259f0df5",
-    "url": "/mia-redux/static/css/main.02f930b2.chunk.css"
+    "revision": "45b8bfc32cc621981735",
+    "url": "/mia-redux/static/css/main.b36ad6ba.chunk.css"
   },
   {
     "revision": "1d47f1f704cda6263520",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/mia-redux/static/js/2.b5813cd0.chunk.js.LICENSE"
   },
   {
-    "revision": "4e1ad259acfd259f0df5",
-    "url": "/mia-redux/static/js/main.6c48c0a5.chunk.js"
+    "revision": "45b8bfc32cc621981735",
+    "url": "/mia-redux/static/js/main.df223d0d.chunk.js"
   },
   {
     "revision": "487c96a048154dc4d15a",
