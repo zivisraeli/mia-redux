@@ -5,6 +5,8 @@ import { Selfies } from '../components/Selfies'
 import { gridItems } from '../gridItemsData';
 import { getCookie } from '../Utils.js';
 
+import '../css/selfies.css';
+
 export class SelfiesWrapper extends React.Component {
   // =============================================================================
   // The component needs to run the following 2 tasks before rendering:

@@ -1,0 +1,235 @@
+/* =============================================================================
+   Selfies
+============================================================================= */
+#spinner-div {
+  height: 100vh;
+  top: 100px;
+}
+
+#grid-section {
+  margin-left: 10%;
+  margin-right: 10%;
+  font-family: calibri;
+}
+
+#grid-section>#title {
+  font-size: 2vw;
+}
+
+#grid-section .mobileLi {
+  display: none;
+}
+
+#select-option-div {
+  display: inline-block;
+  cursor: pointer;
+}
+
+#select-option-div select {
+  padding: 2px;
+  width: 150px;
+  border-radius: .2em;
+  font-size: 13px;
+  background: linear-gradient(to bottom, #ffffff, orange);
+  box-shadow: 1px 1px 4px #C0C0C0;
+  outline: none;
+}
+
+/* I chose box-shadow rather then border manipulation to avoid "jitter" */
+#select-option-div select:hover {
+  box-shadow: 0 0 1px 1px var(--gray-color-border);
+  cursor: pointer;
+}
+
+#select-option-div select option {
+  background: #ffffcc;
+}
+
+#filter-input {
+  width: 90px;
+  height: 21px;
+}
+
+hr {
+  margin-bottom: 20px;
+  border-bottom: none;
+}
+
+/* =============================================================================
+- grid-template-columns: auto-fit so the number of elems horizontally changes.
+- fr unit is grid specifc. fraction. The item would grow and shrink basd on the available space.
+- repeat function would repeat a pattern i.e. repeat(3, 1fr); instead of 1fr 1fr 1fr;
+- auto-fit for responsiveness. Can be used with repeat() in order to avoid specifiying a fix number of columns. 
+- minmax function defines the range i.e. from 320px to 1fr
+- grid-gap would set gap between items 
+- the grid determines the WIDTH of the img. Since the imgs are square the HEIGHT would equal the WIDTH.
+============================================================================= */
+.blurred {
+  filter: blur(12px);
+  transition: var(--fast-transition);
+}
+
+.un-blurred {
+  filter: none;
+  transition: var(--fast-transition);
+}
+
+.dynamic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 2rem;
+}
+
+/* it's relative so the heart can be placed absolutely */
+.grid-item {
+  position: relative;
+  background-color: var(--gray-color-grid);
+  border: 1px solid black;
+  font-size: 13px;
+  text-align: center;
+  margin: 0px;
+  transition: all 0.3s ease-in;
+}
+
+.grid-item:hover {
+  transition: var(--slow-transition);
+  transform: scale(1.05);
+  background-color: #ffa500;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.33);
+}
+
+/* the img width would fit the parent (div) element 100% */
+.grid-item .grid-image {
+  width: 100%;
+  border-bottom: 1px solid black;
+}
+
+/* initially the heart size is 15px. Onclick, it's animated to 20px and back twice */
+.grid-item .heart {
+  position: absolute;
+  width: 15px;
+  top: 5px;
+  right: 5px;
+}
+
+.grid-item .animatedHeartBeat {
+  animation: heartBeat;
+  animation-duration: 1s;
+  animation-iteration-count: 2;
+  animation-timing-function: ease-out;
+}
+
+@keyframes heartBeat {
+  from {
+    width: 15px;
+  }
+
+  to {
+    width: 25px;
+  }
+}
+
+.grid-item figcaption {
+  margin-bottom: 5px;
+}
+
+.heart-likes-icon {
+  width: 11px;
+}
+
+
+/* =============================================================================
+the modal
+============================================================================= */
+/* 
+- initally it's hidden (display:none).
+- blurring the rest of the viewport with background-color.
+- z-index would place the modal on top when active. */
+#modal-main-container-div {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: none;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* the button postion is in relati on to its container div - modal-cotainer-div */
+#modal-main-container-div .nav-button {
+  position: absolute;
+  top: 50%;
+  height: 30px;
+  width: 100px;
+  background-color: var(--orange-color);
+  border: 1px solid black;
+  font-size: 15px;
+  font-weight: 400;
+  font-family: calibri;
+  outline: none;
+}
+
+#modal-main-container-div .button:hover {
+  box-shadow: 1px 1px 4px black;
+  font-weight: 600;
+}
+
+#modal-main-container-div #prev-btn {
+  left: 10px;
+}
+
+#modal-main-container-div #next-btn {
+  right: 10px;
+}
+
+/* - it's relative so the footer/caption can be placed absolutely. 
+ - the top part is right underneath the header (its height + 2px for border); 
+ - the width is determined in the Javascript based on the img propotions. */
+#modal-sub-container-div {
+  position: relative;
+  top: calc(var(--header-height) + 1px);
+  margin: auto;
+  background-color: #fefefe;
+  max-width: 75vw;
+}
+
+#modal-img-div {
+  font-family: calibri;
+  font-size: 13px;
+}
+
+/* Modal image should be the width of the containing div */
+#modal-img-div>img {
+  width: 100%;
+}
+
+/* the image's caption is placed a little over the bottom and centered. */
+#modal-main-img-div .modal-img-caption {
+  position: absolute;
+  bottom: 7px;
+}
+
+#modal-main-img-div #modal-img-text {
+  left: 25px;
+}
+
+#modal-main-img-div #modal-img-like-count {
+  right: 25px;
+}
+
+/* The modal-img-close-btn Button */
+.modal-img-close-btn {
+  position: relative;
+  right: 9px;
+  color: var(--orange-color);
+  float: right;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+/* Change the close btn color and cursor */
+.modal-img-close-btn:hover,
+.modal-img-close-btn:focus {
+  color: black;
+  cursor: pointer;
+}

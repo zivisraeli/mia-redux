@@ -1,0 +1,194 @@
+/* =============================================================================
+   Fans
+============================================================================= */
+#fan-section {
+  margin-left: 10%;
+  margin-right: 10%;
+  font-family: calibri;
+}
+
+#form-header {
+  margin-bottom: 10px;
+}
+
+/* center the form on the page */
+form {
+  margin: auto;
+  width: 400px;
+  padding: 30px;
+  border: 1px solid #cccccc;
+  border-radius: 1em;
+  background-color: #f8f8f8;
+}
+
+/* place some top margin for all div's except the 1st one */
+form>div+div {
+  margin-top: 1em;
+}
+
+form .required {
+  color: var(--orange-color);
+}
+
+/* since label is an inline element, using inline-block would allow specifying width */
+form>div>label {
+  display: inline-block;
+  width: 80px;
+  text-align: right;
+  margin-right: 3px;
+}
+
+form #phone-comment {
+  margin-top: 0px;
+  text-align: left;
+}
+
+form #phone-comment span {
+  margin-left: 92px;
+  font-style: italic;
+  font-size: 13px;
+  color: #aaaaaa;
+}
+
+form .dog-breed-disabled {
+  color: transparent;
+  text-shadow: #adadaa 0px 0px 3px;
+}
+
+form .dog-breed-enabled {
+  color: black;
+  text-shadow: none;
+}
+
+/* outline: none; removes the blue outline */
+input[type=text],
+input[type=email],
+input[type=tel],
+textarea {
+  font: 1em calibri;
+  width: 75%;
+  padding-left: 5px;
+  box-sizing: border-box;
+  border: 1px solid #acacac;
+  box-shadow: 1px 1px 4px #C0C0C0;
+  outline: none;
+}
+
+#grid-section input {
+  width: 90px;
+}
+
+/* since all other input element are 300px wide, here there r multiple inputs (radio btns) */
+#radio-btns-div {
+  display: inline-block;
+  text-align: left;
+  width: 300px;
+}
+
+/* additional highlight for focused elements */
+input:focus,
+textarea:focus {
+  border: 1px solid #ffad33;
+}
+
+/* align textarea with the labels */
+textarea {
+  vertical-align: top;
+  height: 5em;
+}
+
+/* center the submit button. Same size as the label elements */
+form .button {
+  text-align: center;
+}
+
+form button {
+  box-shadow: 0px 1px 0px 0px #fff6af;
+  background: linear-gradient(to bottom, #fefefe 20%, #ffab23 100%);
+  background-color: #ffec64;
+  border-radius: 6px;
+  border: 1px solid #a3a2a0;
+  cursor: pointer;
+  padding: 6px 10px;
+  outline: none;
+}
+
+form button:hover {
+  opacity: 1;
+  box-shadow: 2px 2px 3px #333333;
+  transition: var(--fast-transition);
+}
+
+/* the section is the entire viewport. 
+   it is darkened with some opacity so the modal popup stands out */
+#modal-section {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* grid properties */
+#modal-content {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 40%;
+  margin: 20% auto;
+  padding: 10px;
+  border: 4px double black;
+  border-radius: 1em;
+  background-color: white;
+}
+
+/* grid properties */
+#modal-content #header {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  font-size: 17px;
+}
+
+/* grid properties */
+#modal-content #border {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  width: 90%;
+  margin: auto;
+}
+
+/* grid properties */
+#modal-content label.title {
+  justify-self: end;
+}
+
+/* grid properties */
+#modal-content label.value {
+  justify-self: start;
+  font-style: italic;
+  padding-left: 5px;
+}
+
+/* grid properties */
+#modal-content .btn {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 50%;
+}
+
+/* grid properties */
+#modal-content #modal-submit-btn {
+  justify-self: end;
+}
+
+/* grid properties */
+#modal-content #modal-edit-btn {
+  justify-self: start;
+  margin-left: 10px;
+}

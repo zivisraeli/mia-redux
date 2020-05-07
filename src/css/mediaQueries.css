@@ -1,0 +1,192 @@
+/* =============================================================================
+   Media queries
+============================================================================= */
+
+/* the nav elements should be placed vertically and in the center */
+@media screen and (max-width: 900px) {
+  header {
+    justify-content: center;
+  }
+
+  header #dragged-into-div {
+    width: 150px;
+  }
+
+  header #dragged-into-div #header-img {
+    width: 105px;
+  }
+
+  #about-section span.title {
+    font-size: 18px;
+  }
+
+  #about-section div {
+    grid-template-columns: 1fr 6fr;
+    width: 70vw;
+  }
+
+  #modal-content {
+    width: 60%;
+  }
+
+  #iframe-wrapper {
+    width: 75%;
+    padding-bottom: 40%;
+  }
+
+  #kitbull-section {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  header {
+    height: 75px;
+  }
+
+  header #dragged-into-div {
+    width: 125px;
+    left: var(--less-700-margins);
+  }
+
+  header #dragged-into-div #header-img {
+    width: 85px;
+  }
+
+  header nav {
+    right: var(--less-700-margins);
+  }
+
+  header nav a {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  #about-top-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  #about-section div {
+    grid-template-columns: 1fr 8fr;
+    width: 90vw;
+  }
+
+  #grid-section {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  #modal-sub-container-div {
+    width: 100vw;
+    max-width: 100vw;
+  }
+
+  #modal-main-container-div .nav-button {
+    width: 30px;
+  }
+
+  #modal-main-container-div .button-text {
+    display: none;
+  }
+
+  #modal-main-container-div #prev-btn {
+    left: 0;
+  }
+
+  #modal-main-container-div #next-btn {
+    right: 0;
+  }
+
+  #fan-section {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  /* the two footer spans are split veritically */
+  footer {
+    height: calc(var(--footer-height) + 10px);
+    line-height: calc(var(--footer-height) - 10px);
+  }
+
+  #footer-divider {
+    visibility: hidden;
+  }
+
+  #footer-copyright {
+    display: block;
+  }
+
+
+  #iframe-wrapper {
+    width: 90%;
+    padding-bottom: 50%;
+  }
+
+  #kitbull-section {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  header nav a {
+    font-size: calc(15px + 1.0vw);
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  /* removing all special hovering styles for small devices */
+  .grid-item:hover {
+    transition: none;
+    transform: none;
+    background-color: var(--gray-color-grid);
+    box-shadow: none;
+  }
+
+  /* some of the grid's li elements should appear only on desktop or mobile */
+  #grid-section .desktopLi {
+    display: none;
+  }
+
+  #grid-section .mobileLi {
+    display: block;
+  }
+
+  ul.customed-ul {
+    padding: 10px;
+  }
+
+  form {
+    width: 80vw;
+    padding: 30px 10px;
+  }
+
+  input[type=text],
+  input[type=email],
+  input[type=tel],
+  textarea {
+    width: 95%;
+  }
+
+  form div {
+    text-align: left;
+  }
+
+  form label {
+    text-align: left;
+  }
+
+  form #phone-comment span {
+    margin-left: 0px;
+  }
+
+  #modal-content {
+    width: 80%;
+  }
+
+  footer {
+    height: calc(var(--footer-height) + 30px);
+  }
+}

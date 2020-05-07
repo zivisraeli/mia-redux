@@ -9,11 +9,12 @@ import {
 import { About } from './components/About'; 
 import HeaderImgWrapper from './containers/HeaderImgWrapper';
 import SelfiesWrapper from './containers/SelfiesWrapper';
-import { Fans } from './components/Fans';
-import { Kitbull } from './components/Kitbull';
+import { FansWrapper } from './containers/FansWrapper';
+import { KitbullWrapper } from './containers/KitbullWrapper';
 
-import './style.css';
-import './spinner.css';
+import './css/app.css';
+import './css/mediaQueries.css'
+import './css/spinner.css';
  
 class App extends React.Component {
   constructor() {
@@ -79,10 +80,10 @@ class App extends React.Component {
             <SelfiesWrapper />
           </Route>  
           <Route path={`${contextPath}/fans`}>
-            <Fans />
+            <FansWrapper />
           </Route> 
           <Route path={`${contextPath}/kitbull`}>
-            <Kitbull />
+            <KitbullWrapper />
           </Route>         
         </Switch>
       </Router>

@@ -1,0 +1,119 @@
+/* =============================================================================
+   About
+3 parts (h1, div, h1) r orginized horizontally and centered.
+============================================================================= */
+#about-top-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: gray;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#about-top-section #img-div {
+  position: relative;
+}
+
+#about-top-section #img-frame {
+  width: 300px;
+}
+
+#about-top-section #img {
+  position: absolute;
+  top: 45px;
+  left: 45px;
+  width: 210px;
+  animation-name: fade-in;
+  animation-duration: 15s;
+}
+
+#about-top-section #title-left {
+  width: 300px;
+  animation: slide-in-right 5s ease-in-out;
+}
+
+#about-top-section #title-right {
+  width: 300px;
+  animation: slide-in-left 5s ease-in-out;
+}
+
+/* =============================================================================
+animations for the elements. 
+============================================================================= */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-left {
+  0% {
+    opacity: 0;
+    color: orange;
+    transform: translateX(50%);
+  }
+
+  50% {
+    color: orange;
+    opacity: 0.1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    opacity: 0;
+    color: orange;
+    transform: translateX(-50%);
+  }
+
+  50% {
+    color: orange;
+    opacity: 0.1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+#about-section div {
+  display: grid;
+  grid-gap: 25px;
+  grid-template-columns: 1fr 4fr;
+  width: 65vw;
+  margin: auto;
+  text-align: justify;
+  text-justify: auto;
+}
+
+#about-section span.title {
+  text-align: right;
+  font-family: 'Big Shoulders Display';
+  font-size: 2vw;
+  border-top: 1px solid #ff7f50;
+  margin-top: 3px;
+}
+
+#about-section span.content {
+  font-family: calibri;
+  font-weight: 300;
+}
+
+/* ul has a too large default margin. */
+#about-section ul {
+  margin: 0;
+  padding-left: 30px;
+  list-style-type: square;
+}

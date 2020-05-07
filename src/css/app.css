@@ -1,0 +1,226 @@
+/* =============================================================================
+   Global app styling
+============================================================================= */
+:root {
+  --orange-color: #ffa500;
+  --gray-color-border: #808080;
+  --gray-color-background: #fafafa;
+  --gray-color-grid: #fefefe;
+  --header-height: 95px;
+  --less-900-margins: 50px;
+  --less-700-margins: 20px;
+  --title-font-size: calc(20px + 1.5vw);
+  --slow-transition: all 0.5s linear;
+  --fast-transition: all 0.2s linear;
+  --footer-height: 30px;
+}
+
+/* =============================================================================
+- position is relative so I can place the footer at the bottom, using absolute. 
+- it should be min-height of 100vh to accomodate a short page.
+- by default, the browser sets some margin. I eliminate it. 
+============================================================================= */
+body {
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--gray-color-background);
+}
+
+/* =============================================================================
+- sticky position is preferable over fixed since it keeps the element part of the flow. 
+- width of the entire screen
+- z-index will make it on top of any other element (the position property removes it from the normal flow.)
+============================================================================= */
+header {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(to right, orange, yellow);
+  border-top: 1px solid var(--gray-color-border);
+  border-bottom: 1px solid var(--gray-color-border);
+  width: 100%;
+  height: var(--header-height);
+  z-index: 1;
+}
+
+/* This is an "invisble div". It's used to enlarge the area into which images can be dropped into
+(to replace the header's image). Otherwise, the user would have to aim exactly at the circular image. */
+header #dragged-into-div {
+  position: absolute;
+  top: 5px;
+  left: 10%;
+  width: 200px;
+  height: 200px;
+}
+
+/* 
+- The element is placed relative to it's containing container at 0,0.
+- The border-radius makes the image round. 
+- The image also has a border, but it's assigned by the javascript. */
+header #dragged-into-div #header-img {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 125px;
+  border-radius: 50%;
+}
+
+/* The header image would change it's style upon being dragged into to create a "hint" for the user. 
+the img-hovered class is added and removed upon dragenter() dragleave() events. */
+header #dragged-into-div #header-img.img-hovered {
+  transition: var(--slow-transition);
+  width: 150px;
+  padding: 5px;
+}
+
+/* =============================================================================
+- flex would allow me later on to arrange them vertically.
+- margin-left:auto;  would push the element all the way to the right. 
+- "auto" : taking up available space!!!!!!
+- the 100% height would strech the div element to the height of its container.
+============================================================================= */
+header nav {
+  position: absolute;
+  right: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* =============================================================================
+For the top navigation menu anchors:
+- no underline 
+- font size depends on the viewport width (1.5vw) but would be at least 15px.
+- I need to  use padding and not margin to show a gap with the border
+- vertical line separator through border-right
+============================================================================= */
+header nav a {
+  text-decoration: none;
+  font-family: Oswald;
+  font-weight: 100;
+  font-size: var(--title-font-size);
+  padding-left: 20px;
+  padding-right: 20px;
+  color: black;
+  height: auto;
+  border-right: 2px solid black;
+}
+
+header nav a:last-child {
+  padding-right: 0px;
+}
+
+/* so the last menu entry doesn't have a vertical line */
+header nav a:last-child {
+  border-right: none;
+}
+
+header nav a:hover {
+  color: #ff9900;
+}
+
+main {
+  position: relative;
+  text-align: center;
+}
+
+.middle-section {
+  padding-bottom: calc(var(--footer-height) * 2);
+}
+
+/* font size depends on the viewport width */
+main h1 {
+  font-family: 'Big Shoulders Display';
+  font-weight: 500;
+  font-size: var(--title-font-size);
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+
+
+/* ============================================================================= 
+- customized ul element
+- ul is a block element and so need to turn it into inline-block in order to center it. 
+============================================================================= */
+ul {
+  list-style-type: none;
+}
+
+.news-about-ul {
+  padding-left: 30px;
+}
+
+.news-about-ul .fa-circle {
+  font-size: 40%;
+  color: black;
+  margin-right: 10px;
+  vertical-align: middle;
+  margin-top: -2px;
+}
+
+.news-about-ul li:last-child {
+  font-style: italic;
+}
+
+.customed-ul {
+  display: inline-block;
+  text-align: left;
+  margin: 0px;
+}
+
+.customed-ul>li {
+  margin-bottom: 5px;
+}
+
+.customed-ul li .li-icon {
+  font-size: 50%;
+  color: orange;
+  margin-right: 10px;
+  vertical-align: middle;
+  margin-top: -2px;
+  text-shadow: 0px 0px 5px black;
+  border: 1px solid gray;
+  border-radius: 50%;
+}
+
+/*
+#form-header .customed-ul li::before {
+  font-family: 'FontAwesome';
+  content: '\f111';
+  color: orange;
+  font-size: 50%;
+  display: inline-block;
+  text-shadow: 0px 0px 5px black;
+  border: 1px solid gray;
+  border-radius: 60%;
+}
+*/
+
+/* The footer is placed at the bottom relative to its containing element (not the vp). 
+  If line-height is the same figure as height, element would be centered vertically.
+   */
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  height: var(--footer-height);
+  line-height: var(--footer-height);
+  border-top: 1px solid var(--gray-color-border);
+  background-color: #d3d3d3;
+}
+
+/* The 1st and last spans r styled 'italic' yet the divider char is not. */
+footer span:first-child,
+footer span:last-child {
+  font-family: calibri;
+  font-style: italic;
+  font-size: 15px;
+}
+
+footer img {
+  vertical-align: middle;
+  width: 15px;
+}
