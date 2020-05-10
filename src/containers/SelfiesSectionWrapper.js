@@ -7,6 +7,41 @@ import { ALL_IMGS_LOADED } from '../constants';
 
 export class SelfiesSectionWrapper extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    // =============================================================================
+    // Intersection Observer API.
+    // To implement this functionality I'm taking these steps:
+    // 1. this.imgRefs is an array of refs that represents all images. 
+    //    I need these handlers to make them observe scrolling events.
+    // 2. this.observer has 2 parameters:
+    //    - the callback function that filters the images
+    //    - the threshold parameters that triggers events when an image is 0.9 visible.
+    // 3. assocaiting the.imgRefs individual entries with the img is done in SelfiesGridItem
+    //    ref={props.imgRef}
+    // 4. instructing the imgRefs to observer scrolling events is done only after the 
+    //    component is mount in componentDidMount. 
+    // =============================================================================
+    this.imgRefs = gridItems.data.map(() => {
+      return React.createRef();
+    });
+
+    this.observer = new IntersectionObserver(function(entries) {
+      for (const entry of entries) {
+        if (entry['isIntersecting'] === true) {
+          if (entry['intersectionRatio'] >= 0.9) {
+            entry.target.style.filter = "none";
+          } else if (entry['intersectionRatio'] < 0.9) {
+            entry.target.style.filter = "blur(4px) grayscale(100%)";
+          }
+          console.log(entry);
+        }
+      }
+    }, { threshold: [0, 0.9] });
+
+  }
+
   // =============================================================================
   // - During the lengthy grid-images load time I display a spinner.
   // - When all the images are loaded I dispatch ALL_IMGS_LOADED action that would turn
@@ -27,9 +62,19 @@ export class SelfiesSectionWrapper extends React.Component {
       )
     });
 
+    // When all images are loaded then only call onAllImgsLoaded that would make the grid visible.
     Promise.all(arrOfPromises).then(values => {
       this.props.onAllImgsLoaded();
     });
+
+    // make the images observe scrolling events. 
+    for (const imgRef of this.imgRefs) {
+      try {
+        this.observer.observe(imgRef.current);
+      } catch (err) {
+        console.log(err);
+      }
+    }
   }
 
   // =============================================================================  
@@ -51,7 +96,7 @@ export class SelfiesSectionWrapper extends React.Component {
                       blurEffect={this.props.blurEffect} 
                       gridVisibility = { this.props.gridVisibility }                      
                       isModalOn={this.props.isModalOn}
-                       />
+                      imgRefs={this.imgRefs} />
     );
   }
 }

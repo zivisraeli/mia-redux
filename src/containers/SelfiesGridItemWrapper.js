@@ -140,7 +140,8 @@ export class SelfiesGridItemWrapper extends React.Component {
                        onTouchEnd={(event) => this.props.onTouchEnd(event, this.onHeartClick)}
                        theHeartImg={theHeartImg}
                        theHeartImgClass={theHeartImgClass}
-                       key={this.props.id}/>);
+                       key={this.props.id}
+                       imgRef={this.props.imgRef}/>);
   }
 }
 

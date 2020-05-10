@@ -32,7 +32,7 @@ export class FansSectionWrapper extends React.Component {
   render() {
     return (
       <section className="middle-section">
-        <form action="https://zivisraeli.github.io/mia/index.html" method="get" ref={this.form} >
+        <form action="https://zivisraeli.github.io/mia-redux/index.html" method="get" ref={this.form} >
           <FansSection dogBreedEnabled={this.props.dogBreedEnabled} 
                        onDogBreedToggled={this.props.onDogBreedToggled}
                        formModalDisplayStyle={this.props.formModalDisplayStyle}

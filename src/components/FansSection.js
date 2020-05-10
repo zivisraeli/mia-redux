@@ -17,6 +17,8 @@ export const FansSection = (props) => {
     dogBreedInputDisabled = '';
   }
 
+  let {name, email, phone, owner, breed, comment} = props.formValuesObject;
+
   return (
     <React.Fragment>
       <div>
@@ -34,7 +36,7 @@ export const FansSection = (props) => {
       <div id="phone-comment">
         <span>Format: xxx-xxx-xxxx</span>
       </div>
-      <div>
+      <div> 
         <label htmlFor="radio-btns-div">Dog Owner:</label>
         <div id="radio-btns-div">
           <input type="radio" name="dog-owner" value="Yes" onClick={props.onDogBreedToggled} checked={checkedYes} />Yes
@@ -57,12 +59,12 @@ export const FansSection = (props) => {
         <div id="modal-content">
           <span id="header">Please review your data. Submit or keep editing. </span>
           <img id="border" src="images/border1.png"></img>
-          <label class="title">Names:</label><label class="value" id="name-display">{props.formValuesObject.name}</label>
-          <label class="title">Email:</label><label class="value" id="email-display">{props.formValuesObject.email}</label>
-          <label class="title">Telephone:</label><label class="value" id="tel-display">{props.formValuesObject.phone}</label>
-          <label class="title">Dog Owner:</label><label class="value" id="owner-display">{props.formValuesObject.owner}</label>
-          <label class="title">Dog Bread:</label><label class="value" id="dog-breed-display">{props.formValuesObject.breed}</label>
-          <label class="title">Comment:</label><label class="value" id="comment-display">{props.formValuesObject.comment}</label>
+          <label class="title">Names:</label><label class="value" id="name-display">{name}</label>
+          <label class="title">Email:</label><label class="value" id="email-display">{email}</label>
+          <label class="title">Telephone:</label><label class="value" id="tel-display">{phone}</label>
+          <label class="title">Dog Owner:</label><label class="value" id="owner-display">{owner}</label>
+          <label class="title">Dog Bread:</label><label class="value" id="dog-breed-display">{breed}</label>
+          <label class="title">Comment:</label><label class="value" id="comment-display">{comment}</label>
 
           <button id="modal-submit-btn" class="btn btn-primary" type="submit"><i class="fa fa-paw"></i>&nbsp;&nbsp;Submit</button>
           <button id="modal-edit-btn" class="btn btn-primary" type="button" onClick={props.onFormModalEdit}>&nbsp;&nbsp;Edit</button>

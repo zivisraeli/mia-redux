@@ -20,14 +20,15 @@ export const SelfiesSection = (props) => {
         </div>
         <section className="grid-section middle-section">
           <div className={"dynamic-grid " + props.blurEffect} style={{visibility:props.gridVisibility}}>
-            {props.filteredGridItemsData.map((gridItemData) => {
+            {props.filteredGridItemsData.map((gridItemData, index) => {
               return (<SelfiesGridItemWrapper id={gridItemData.id}
                                               src={gridItemData.src}
                                               caption={gridItemData.caption}
                                               isLiked={gridItemData.isLiked}
                                               likeCount={gridItemData.likeCount}
                                               date={gridItemData.date}                                           
-                                              key={gridItemData.id} />);
+                                              key={gridItemData.id} 
+                                              imgRef={props.imgRefs[index]}/>);
             })}
           </div>
 
