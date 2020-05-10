@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/mia-redux/static/css/main.74850583.chunk.css",
-    "main.js": "/mia-redux/static/js/main.d3f8b9bf.chunk.js",
-    "main.js.map": "/mia-redux/static/js/main.d3f8b9bf.chunk.js.map",
+    "main.js": "/mia-redux/static/js/main.c93589c4.chunk.js",
+    "main.js.map": "/mia-redux/static/js/main.c93589c4.chunk.js.map",
     "runtime-main.js": "/mia-redux/static/js/runtime-main.71454fc4.js",
     "runtime-main.js.map": "/mia-redux/static/js/runtime-main.71454fc4.js.map",
     "static/js/2.b5813cd0.chunk.js": "/mia-redux/static/js/2.b5813cd0.chunk.js",
     "static/js/2.b5813cd0.chunk.js.map": "/mia-redux/static/js/2.b5813cd0.chunk.js.map",
     "index.html": "/mia-redux/index.html",
-    "precache-manifest.6a0d7d4ece2364c7e6afe27c5ba413a2.js": "/mia-redux/precache-manifest.6a0d7d4ece2364c7e6afe27c5ba413a2.js",
+    "precache-manifest.602a3412a5a3ea449a5c8d15989291f3.js": "/mia-redux/precache-manifest.602a3412a5a3ea449a5c8d15989291f3.js",
     "service-worker.js": "/mia-redux/service-worker.js",
     "static/css/main.74850583.chunk.css.map": "/mia-redux/static/css/main.74850583.chunk.css.map",
     "static/js/2.b5813cd0.chunk.js.LICENSE": "/mia-redux/static/js/2.b5813cd0.chunk.js.LICENSE",
@@ -23,6 +23,6 @@
     "static/js/runtime-main.71454fc4.js",
     "static/js/2.b5813cd0.chunk.js",
     "static/css/main.74850583.chunk.css",
-    "static/js/main.d3f8b9bf.chunk.js"
+    "static/js/main.c93589c4.chunk.js"
   ]
 }
