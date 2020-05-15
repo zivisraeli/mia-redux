@@ -8,7 +8,7 @@ export const SelfiesSection = (props) => {
   // =============================================================================  
   // A few properties here are conditional:
   // - The section "blurring" effect is conditional based on the state.modalImgId value. 
-  // - In addition to the grid I'll also render the modal componet ONLY if hte modalImgId is not ''
+  // - In addition to the grid I'll also render the modal componet ONLY if the modalImgId is not ''
   //   This will happen if the image is clicked on in the GridItem component in which case
   //   the imgClickCallbackEventHandler() is invoked that changes the state.modalImgId value.
   // =============================================================================  

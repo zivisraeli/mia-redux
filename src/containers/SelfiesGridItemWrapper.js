@@ -114,17 +114,39 @@ export class SelfiesGridItemWrapper extends React.Component {
     }
 
     // =============================================================================
+    // there are 3 main functionalities on a grid item:
+    //   - desktop
+    //     * click on an img to make it larger
+    //     * drag an img to the header
+    //     * click on the heart icon to toggle the heart/likes.
+    //   - mobile:
+    //     * click on an img to make it larger
+    //     * swipe (drag) to the left to set an img to the header
+    //     * swipe (drag) to the right to toggle the heart/likes.
+    // 
     // - there are 3 types of events here:
-    //   1. those that can be processed locally such as onDragStart(), onTouchStart(), etc
-    //   2. those that need to dispatch an action to notify other components such as onImgClick().
-    //   3. those that need both local and dispatch handling such as onTouchEnd().
-    // onTouchEnd - when a touch event happens it means either:
-    //   - like-count need to change if swipe to the right. in which case it can be handled 
-    //     locally by onHeartClick()
-    //   - header-img need to change if swipe to the left. in which case an action needs to 
-    //     be dispatched since it's handled by other components.
-    //  for the local handling case there is a bit of an issue. since onTouchEnd can't simply
-    //  call onHeartClick(). I therefore pass it through the onTouchEnd property.
+    //   1. those that can be processed locally and they don't communicate with other components:
+    //      * onDragStart - gathers data for dataTransfer.
+    //      * onTouchStart - gathers data for dataTransfer.
+    //      * onHeartClick - modifies local state values (can be invoked by onTouchEnd)
+    //   2. those that need to dispatch an action to notify other components:
+    //      * onImgClick
+    //   3. those that need both local processing and dispatch handling:
+    //      * onTouchEnd - when a touch event happens it means either:
+    //        - swipe-to-the-right: equivalent to heart-click and thus can be handled 
+    //          locally by onHeartClick().
+    //        - swipe-to-the-left: header-img needs to change and so an action needs to 
+    //           be dispatched since it's handled by other components.
+    // 
+    //  - the local handling case presents a bit of an issue - onTouchEnd needs to invoke onHeartClick() 
+    //    which is a class method. I therefore pass it through the onTouchEnd property so I have the 
+    //    handler to this method upon onTouchEnd event. 
+    //  - to pass an argument to the onTouchEnd callback functiong, I'm creating an anonymous function
+    //    that returns a call to onTouchEnd with arguments. 
+    //  - the end event for onDragStart is onDragDrop which takes place in HeaderImgWrapper. 
+    //  - the imgRef property is a refernce to each img so I can associate scroll events with it.
+    //    the scroll event blurs/unblurs each image upon being fully visible (Intersection Observer API)
+    //    the references were created in the SelfiesSectionWrapper.
     // =============================================================================
     return (
       <SelfiesGridItem id={this.props.id} 
@@ -133,11 +155,11 @@ export class SelfiesGridItemWrapper extends React.Component {
                        date={this.props.date}
                        isLiked={this.state.isLiked}
                        likeCount={this.state.likeCount}                    
-                       onHeartClick={this.onHeartClick} 
                        onImgClick={this.props.onImgClick}
                        onDragStart={this.onDragStart}
                        onTouchStart={this.onTouchStart}                      
                        onTouchEnd={(event) => this.props.onTouchEnd(event, this.onHeartClick)}
+                       onHeartClick={this.onHeartClick} 
                        theHeartImg={theHeartImg}
                        theHeartImgClass={theHeartImgClass}
                        key={this.props.id}
@@ -168,8 +190,10 @@ const mapDispatchToProps = (dispatch) => {
       let diffY = Math.abs(startY - endY);
       if ((diffX > 25) && (diffY < 25)) {
         if (endX > startX) {
+          // Swipe to the right
           onHeartClick(theTouch);
         } else {
+          // Swipe to the left
           let touchedImgId = theTouch.target.parentElement.id;
           setCookie("headerImgId", touchedImgId);
           return dispatch({

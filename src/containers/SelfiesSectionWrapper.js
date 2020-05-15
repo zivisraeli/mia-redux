@@ -94,7 +94,7 @@ export class SelfiesSectionWrapper extends React.Component {
       <SelfiesSection filteredGridItemsData={filteredGridItemsData}
                       spinnerDisplay={spinnerDisplay}
                       blurEffect={this.props.blurEffect} 
-                      gridVisibility = { this.props.gridVisibility }                      
+                      gridVisibility = {this.props.gridVisibility}                      
                       isModalOn={this.props.isModalOn}
                       imgRefs={this.imgRefs} />
     );
